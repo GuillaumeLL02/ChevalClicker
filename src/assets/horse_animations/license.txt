@@ -1,0 +1,11 @@
+Model Information:
+* title:	Horse Animations
+* source:	https://sketchfab.com/3d-models/horse-animations-69652f7d025646a2a3cab6fdb37658c3
+* author:	ShariffButler726 (https://sketchfab.com/ShariffButler726)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Horse Animations" (https://sketchfab.com/3d-models/horse-animations-69652f7d025646a2a3cab6fdb37658c3) by ShariffButler726 (https://sketchfab.com/ShariffButler726) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
