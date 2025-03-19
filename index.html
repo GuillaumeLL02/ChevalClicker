@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ChevalClicker</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="MoneyPanel">
+        <div class="MoneyDisplay">
+            Money :
+            <div class="MoneyAmmount">
+                40 $
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="left-section">
+            <div class="UpgradePanel">
+
+                <div class="Upgrade" id="FirstUpgrade">
+                    <img class="UpgradeImage" src="src/images/fence.png">
+                    <div class="Name">Patures</div>
+                    <div class="Price"> 256$ </div>
+                    <div class="Number"> Lv: 5 </div>
+                    <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                </div>
+                <div class="Upgrade" id="SecondUpgrade">
+                    <img src="">
+                    <div class="Name">Second Upgrade</div>
+                    <div class="Price"> 256$ </div>
+                    <div class="Number"> Lv: 5 </div>
+                    <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                </div>
+
+            </div>
+            <div class="ChevalPanel">
+
+                <div class="UpgradePanelLeft">
+                    <h2>Nourriture</h2>
+                    <div class="Foods" id="FirstFood">
+                        <img class="UpgradeImage" src="src/images/Carrot.png">
+                        <div class="Name">Carottes</div>
+                        <div class="Price"> 10$ </div>
+
+                        <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                    </div>
+                </div>
+                <div class="ClickCheval">
+                    <button id="buttonCheval" class="src/images/ClickCheval"> </button>
+                </div>
+                <div class=" StatPanel">
+                    <h2>Stats Panel</h2>
+                </div>
+            </div>
+        </div>
+        <button id="toggleBtn">⇄</button>
+
+          <div class="right-section">
+            <script src="src/js/script.js" type="module"></script>
+
+            <main>
+                <div id="container3D"></div>
+            </main>
+       </div>
+    </div>
+  <footer>Footer</footer>
+  <script src="src/js/script_visuel.js"></script>
+  <script src="src/js/script_gameplay.js"></script>
+</body>
+
+</html>
