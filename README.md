@@ -1,0 +1,2 @@
+faut faire 
+    npx vite
