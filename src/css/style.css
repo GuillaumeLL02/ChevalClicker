@@ -45,7 +45,7 @@ body {
 }
 
 .left-section {
-  background-image: url('src/images/Ferme.jpg');
+  background-image: url('../images/Ferme.jpg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -139,7 +139,7 @@ footer {
 
   cursor: pointer;
   border: none;
-  background-image: url('src/images/Cheval.png');
+  background-image: url('../images/Cheval.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
