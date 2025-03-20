@@ -23,16 +23,11 @@ camera.lookAt(0, 0, 0);
 // Controls
 const orbit = new OrbitControls(camera, renderer.domElement);
 
-// 📌 Création des deux scènes
+// 📌 Création de la scène
 const scene1 = new THREE.Scene();
 scene1.background = new THREE.Color(0xaaaaaa);
-const scene2 = new THREE.Scene();
-scene2.background = new THREE.Color(0x222222);
 
-// 📌 Variable pour suivre la scène active
-let activeScene = scene1;
-
-// 📌 Fonction pour ajouter les lumières aux scènes
+// 📌 Fonction pour ajouter les lumières à la scène
 function addLights(scene) {
     const ambientLight = new THREE.AmbientLight(0x333333);
     scene.add(ambientLight);
@@ -43,7 +38,6 @@ function addLights(scene) {
     scene.add(directionalLight);
 }
 addLights(scene1);
-addLights(scene2);
 
 // 📌 Chargement des modèles
 const loader = new GLTFLoader();
@@ -62,13 +56,11 @@ function loadModel(scene, url, position, scale) {
     });
 }
 
-// 📌 Ajouter des modèles différents aux deux scènes
+// 📌 Ajouter des modèles à la scène
 loadModel(scene1, 'src/assets/horse_animations/scene.gltf', { x: 0, y: 0, z: 0 }, { x: 15, y: 15, z: 15 });
 loadModel(scene1, 'src/assets/shiba/scene.gltf', { x: -5, y: 0, z: -5 }, { x: 12, y: 12, z: 12 });
 
-loadModel(scene2, 'src/assets/armored_horse/scene.gltf', { x: 5, y: 1, z: 5 }, { x: 1, y: 1, z: 1 });
-
-// 📌 Création du sol pour chaque scène
+// 📌 Création du sol pour la scène
 function addPlane(scene) {
     const planeGeometry = new THREE.PlaneGeometry(20, 20);
     const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xf7f7f7, side: THREE.DoubleSide });
@@ -78,38 +70,18 @@ function addPlane(scene) {
     scene.add(plane);
 }
 addPlane(scene1);
-addPlane(scene2);
 
 // 📌 Ajout des Helpers (Grille, Axes)
 scene1.add(new THREE.GridHelper(20, 5));
 scene1.add(new THREE.AxesHelper(5));
 
-scene2.add(new THREE.GridHelper(20, 5));
-scene2.add(new THREE.AxesHelper(5));
-
 // 📌 Animation Loop
 function animate() {
     requestAnimationFrame(animate);
     orbit.update();
-    renderer.render(activeScene, camera);
+    renderer.render(scene1, camera);
 }
 animate();
-
-// 📌 Gestion du changement de scène
-const button = document.createElement('button');
-button.innerText = 'Changer de scène';
-button.style.position = 'absolute';
-button.style.top = '10px';
-button.style.left = '10px';
-button.style.padding = '10px';
-button.style.backgroundColor = '#fff';
-button.style.border = '1px solid #000';
-button.style.cursor = 'pointer';
-document.body.appendChild(button);
-
-button.addEventListener('click', () => {
-    activeScene = activeScene === scene1 ? scene2 : scene1;
-});
 
 // 📌 Handle window resize
 window.addEventListener('resize', () => {
