@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>ChevalClicker</title>
-  <link href="src/css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ChevalClicker</title>
+    <link href="/src/css/style.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-    <div class="MoneyPanel">
-        <div class="MoneyDisplay">
-            Money :
-            <div class="MoneyAmmount">
-                40 $
-            </div>
-
-        </div>
+    <!-- Page 1 : Menu principal -->
+    <div id="main-menu" class="page">
+        <h1>ChevalClicker</h1>
+        <button class="start"><img src="/src/UI/svg/Buttons/Rect/PlayText/Default.svg" alt="Play"></button>
+        <button class="son"><img src="/src/UI/svg/Buttons/Square/SoundOn/Default.svg" alt="Son"></button>
     </div>
-    <div class="container">
-        <div class="left-section">
-            <div class="UpgradePanel">
 
+    <!-- Page 2 : Interface avec cheval 2D -->
+    <div id="game-ui" class="page" style="display: none;">
+        <div class="MoneyPanel">
+            <div class="MoneyDisplay">
+                Money : <div class="MoneyAmmount">40 $</div>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="UpgradePanel">
                 <div class="Upgrade" id="FirstUpgrade">
-                    <img class="UpgradeImage" src="src/images/fence.png">
-                    <div class="Name">Patures</div>
-                    <div class="Price"> 256$ </div>
-                    <div class="Number"> Lv: 5 </div>
-                    <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                    <img class="UpgradeImage" src="/src/images/fence.png" alt="Pâtures">
+                    <div class="Name">Pâtures</div>
+                    <div class="Price">256$</div>
+                    <div class="Number">Lv: 5</div>
+                    <button id="FirstUpgradeButton" class="UpgradeButton">Buy</button>
                 </div>
                 <div class="Upgrade" id="SecondUpgrade">
-                    <img src="">
+                    <img src="" alt="Second Upgrade">
                     <div class="Name">Second Upgrade</div>
-                    <div class="Price"> 256$ </div>
-                    <div class="Number"> Lv: 5 </div>
-                    <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                    <div class="Price">256$</div>
+                    <div class="Number">Lv: 5</div>
+                    <button id="SecondUpgradeButton" class="UpgradeButton">Buy</button>
                 </div>
-
             </div>
-            <div class="ChevalPanel">
 
+            <div class="ChevalPanel">
                 <div class="UpgradePanelLeft">
                     <h2>Nourriture</h2>
                     <div class="Foods" id="FirstFood">
-                        <img class="UpgradeImage" src="src/images/Carrot.png">
+                        <img class="UpgradeImage" src="/src/images/Carrot.png" alt="Carottes">
                         <div class="Name">Carottes</div>
-                        <div class="Price"> 10$ </div>
-
-                        <button id="FirstUpgradeButton" class="UpgradeButton"> Buy </button>
+                        <div class="Price">10$</div>
+                        <button id="FirstFoodButton" class="UpgradeButton">Buy</button>
                     </div>
                 </div>
                 <div class="ClickCheval">
-                    <button id="buttonCheval" class="src/images/ClickCheval"> </button>
+                    <button id="buttonCheval"></button>
                 </div>
-                <div class=" StatPanel">
+                <div class="StatPanel">
                     <h2>Stats Panel</h2>
                 </div>
             </div>
+
+            <button id="to-3d-btn">Voir en 3D</button>
         </div>
-        <button id="toggleBtn">⇄</button>
 
-          <div class="right-section">
-            <script src="src/js/script.js" type="module"></script>
-
-            <main>
-                <div id="container3D"></div>
-            </main>
-       </div>
+        <footer>Footer</footer>
     </div>
-  <footer>Footer</footer>
-  <script src="src/js/script_visuel.js"></script>
-  <script src="src/js/script_gameplay.js"></script>
-</body>
 
+    <!-- Page 3 : Cheval en 3D -->
+    <div id="cheval-3d" class="page" style="display: none;">
+        <div id="container3D"></div>
+        <button id="back-to-ui-btn">Retour</button>
+    </div>
+
+    <!-- Script unique -->
+    <script src="/src/js/script.js" type="module"></script>
+</body>
 </html>

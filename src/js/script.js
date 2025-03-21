@@ -7,60 +7,36 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 
-const container = document.getElementById("container3D");
+const container = document.getElementById('container3D');
 if (container) {
     container.appendChild(renderer.domElement);
 } else {
-    console.warn("Element #container3D not found. Appending to body instead.");
-    document.body.appendChild(renderer.domElement);
+    console.warn("Element #container3D not found.");
 }
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(5, 5, 10);
-camera.lookAt(0, 0, 0);
 
 // Controls
 const orbit = new OrbitControls(camera, renderer.domElement);
 
-// 📌 Création de la scène
-const scene1 = new THREE.Scene();
-scene1.background = new THREE.Color(0xaaaaaa);
+// Scène 3D
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xaaaaaa);
 
-// 📌 Fonction pour ajouter les lumières à la scène
+// Ajout des lumières
 function addLights(scene) {
     const ambientLight = new THREE.AmbientLight(0x333333);
     scene.add(ambientLight);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
     directionalLight.position.set(-30, 50, 0);
     directionalLight.castShadow = true;
     scene.add(directionalLight);
 }
-addLights(scene1);
+addLights(scene);
 
-// 📌 Chargement des modèles
-const loader = new GLTFLoader();
-function loadModel(scene, url, position, scale) {
-    loader.load(url, (gltf) => {
-        const model = gltf.scene;
-        model.position.set(position.x, position.y, position.z);
-        model.scale.set(scale.x, scale.y, scale.z);
-        scene.add(model);
-    }, 
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    }, 
-    (error) => {
-        console.error("Error loading model:", error);
-    });
-}
-
-// 📌 Ajouter des modèles à la scène
-loadModel(scene1, 'src/assets/horse_animations/scene.gltf', { x: 0, y: 0, z: 0 }, { x: 15, y: 15, z: 15 });
-loadModel(scene1, 'src/assets/shiba/scene.gltf', { x: -5, y: 0, z: -5 }, { x: 12, y: 12, z: 12 });
-
-// 📌 Création du sol pour la scène
+// Ajout du sol
 function addPlane(scene) {
     const planeGeometry = new THREE.PlaneGeometry(20, 20);
     const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xf7f7f7, side: THREE.DoubleSide });
@@ -69,21 +45,67 @@ function addPlane(scene) {
     plane.receiveShadow = true;
     scene.add(plane);
 }
-addPlane(scene1);
+addPlane(scene);
 
-// 📌 Ajout des Helpers (Grille, Axes)
-scene1.add(new THREE.GridHelper(20, 5));
-scene1.add(new THREE.AxesHelper(5));
+// Chargement du modèle GLTF
+const loader = new GLTFLoader();
+loader.load(
+    '/src/assets/horse_animations/scene.gltf',
+    (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, 0, 0);
+        model.scale.set(15, 15, 15);
+        scene.add(model);
+    },
+    (xhr) => console.log((xhr.loaded / xhr.total * 100) + '% loaded'),
+    (error) => console.error('Error loading model:', error)
+);
 
-// 📌 Animation Loop
+// Animation
 function animate() {
     requestAnimationFrame(animate);
     orbit.update();
-    renderer.render(scene1, camera);
+    renderer.render(scene, camera);
 }
 animate();
 
-// 📌 Handle window resize
+// Gestion des pages
+const mainMenu = document.getElementById('main-menu');
+const gameUI = document.getElementById('game-ui');
+const cheval3D = document.getElementById('cheval-3d');
+const startBtn = mainMenu.querySelector('.start');
+const sonBtn = mainMenu.querySelector('.son');
+const to3dBtn = document.getElementById('to-3d-btn');
+const backToUiBtn = document.getElementById('back-to-ui-btn');
+
+if (startBtn) {
+    startBtn.addEventListener('click', () => {
+        mainMenu.style.display = 'none';
+        gameUI.style.display = 'block';
+    });
+}
+
+if (sonBtn) {
+    sonBtn.addEventListener('click', () => {
+        alert('Son : à venir !');
+    });
+}
+
+if (to3dBtn) {
+    to3dBtn.addEventListener('click', () => {
+        gameUI.style.display = 'none';
+        cheval3D.style.display = 'block';
+    });
+}
+
+if (backToUiBtn) {
+    backToUiBtn.addEventListener('click', () => {
+        cheval3D.style.display = 'none';
+        gameUI.style.display = 'block';
+    });
+}
+
+// Gestion du redimensionnement
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();

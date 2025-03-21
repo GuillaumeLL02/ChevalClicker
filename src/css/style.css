@@ -1,84 +1,83 @@
+/* Réinitialisation globale */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Styles de base pour le body */
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   background-color: #f0f0f0;
   position: relative;
+  overflow: hidden;
 }
 
-.container {
-  display: flex;
+/* Styles pour les pages */
+.page {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
-.left-section,
-.right-section {
-  width: 100%;
-  padding: 20px;
+/* Page 1 : Menu principal */
+#main-menu {
+  background-color: #2c3e50;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s ease-in-out;
+  position: relative;
 }
 
-.right-section {
-  position: absolute;
-  left: 100%;
-  width: 100%;
-  height: 100%;
+#main-menu h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 60px;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px #f39c12, -2px -2px 4px #4CAF50;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #2c3e50, #4CAF50);
+  border-radius: 10px;
+  animation: pulse 2s infinite;
 }
 
-.left-section {
-  background-image: url('../images/Ferme.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white;
-  transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-.right-section {
-  background-color: #2ecc71;
-  color: white;
-  transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
-}
-
-#toggleBtn {
-  width: 40px;
-  height: 40px;
+#main-menu .start, #main-menu .son {
+  background: none;
   border: none;
-  background-color: #333;
-  color: white;
-  font-size: 20px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  padding: 0;
+}
+
+#main-menu .start img {
+  width: 200px;
+  height: 100px;
+  margin: 20px 0;
+}
+
+#main-menu .son img {
+  width: 80px;
+  height: 100px;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
+  bottom: 20px;
+  left: 20px;
 }
 
-#toggleBtn:hover {
-  background-color: #555;
+/* Page 2 : Interface avec cheval 2D */
+#game-ui {
+  display: none;
 }
-
 
 .MoneyPanel {
   width: 100%;
@@ -86,33 +85,44 @@ body {
   color: white;
   padding: 10px;
   text-align: center;
-  z-index: 20;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
 }
 
-footer {
-  width: 100%;
-  height: 10px;
-  background-color: #8B4513;
+.MoneyDisplay {
+  background-color: black;
+  font-size: 20px;
+  width: 200px;
+  margin: 0 auto;
+  padding: 5px;
+}
 
+.game-content {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-image: url('/src/images/Ferme.jpg');
+  background-size: cover;
+  background-position: center;
   color: white;
-  padding: 15px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  top: 60px;
   left: 0;
 }
 
 .UpgradePanel {
-  top: 1vh;
-  position: fixed;
+  position: relative;
+  top: 10px;
   padding: 10px;
   background-color: #8B4513;
   width: 80%;
-  min-width: 50%;
   height: 100px;
   display: flex;
   gap: 10px;
+  margin: 0 auto;
 }
 
 .ChevalPanel {
@@ -120,54 +130,43 @@ footer {
   height: 80%;
   display: flex;
   justify-content: center;
-  top: 70px;
   position: relative;
-
+  top: 70px;
 }
 
 .ClickCheval {
-
   height: 100%;
   width: 25%;
   position: absolute;
 }
 
-
-
 #buttonCheval {
   background-color: transparent;
-
   cursor: pointer;
   border: none;
-  background-image: url('../images/Cheval.png');
+  background-image: url('/src/images/Cheval.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
   transition: transform 0.3s ease;
-  display: inline-block;
-  box-sizing: border-box;
-
 }
 
 #buttonCheval:hover {
   transform: scale(0.95);
 }
 
-/* Rotation à droite */
 #buttonCheval.tourner-droit {
   transform: rotate(30deg) scale(1.2);
 }
 
-/* Rotation à gauche */
 #buttonCheval.tourner-gauche {
   transform: rotate(-30deg) scale(1.2);
 }
 
 .StatPanel {
   position: absolute;
-
   right: 0;
   height: 80%;
   width: 15%;
@@ -176,7 +175,6 @@ footer {
 
 .UpgradePanelLeft {
   position: absolute;
-
   left: 0;
   height: 80%;
   width: 15%;
@@ -192,7 +190,6 @@ footer {
   padding: 5px;
   width: 150px;
   height: 70px;
-
 }
 
 .Name {
@@ -200,8 +197,6 @@ footer {
   left: 60px;
   top: 15px;
   font-size: 15px;
-
-
 }
 
 .Number {
@@ -220,6 +215,7 @@ footer {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  padding: 2px 5px;
 }
 
 .UpgradeImage {
@@ -239,12 +235,70 @@ footer {
   width: 150px;
   height: 70px;
   left: 20%;
-
 }
 
-.MoneyDisplay {
-  background-color: black;
-  position: relative;
-  font-size: 20px;
+#to-3d-btn {
   width: 200px;
+  padding: 15px;
+  font-size: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+#to-3d-btn:hover {
+  background-color: #555;
+}
+
+footer {
+  width: 100%;
+  height: 30px;
+  background-color: #8B4513;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* Page 3 : Cheval en 3D */
+#cheval-3d {
+  display: none;
+  background-color: #2ecc71;
+  position: relative;
+}
+
+#container3D {
+  width: 100%;
+  height: 100vh;
+}
+
+#back-to-ui-btn {
+  width: 200px;
+  padding: 15px;
+  font-size: 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+#back-to-ui-btn:hover {
+  background-color: #da190b;
 }
