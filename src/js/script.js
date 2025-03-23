@@ -70,12 +70,26 @@ function animate() {
 animate();
 
 // Gestion des pages
+const mainMenu = document.getElementById('main-menu');
 const gameUI = document.getElementById('game-ui');
 const cheval3D = document.getElementById('cheval-3d');
+const startBtn = mainMenu.querySelector('.start');
+const sonBtn = mainMenu.querySelector('.son');
 const to3dBtn = document.getElementById('to-3d-btn');
 const backToUiBtn = document.getElementById('back-to-ui-btn');
 
+if (startBtn) {
+    startBtn.addEventListener('click', () => {
+        mainMenu.style.display = 'none';
+        gameUI.style.display = 'block';
+    });
+}
 
+if (sonBtn) {
+    sonBtn.addEventListener('click', () => {
+        alert('Son : à venir !');
+    });
+}
 
 if (to3dBtn) {
     to3dBtn.addEventListener('click', () => {

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
 
 // Préférer const à let quand possible et regrouper les initialisations
 const scene = new THREE.Scene();
@@ -21,18 +21,11 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
-// OrbitControls avec damping pour fluidité
-const orbit = new OrbitControls(camera, renderer.domElement);
-orbit.enableDamping = true;
-orbit.dampingFactor = 0.05;
 
 // Éclairage optimisé
 scene.add(new THREE.AmbientLight(0xffffff, 0.7)); // Réduction d'intensité
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(10, 20, 10);
-directionalLight.castShadow = true;
-directionalLight.shadow.mapSize.width = 1024; // Réduction de la résolution des ombres
-directionalLight.shadow.mapSize.height = 1024;
 scene.add(directionalLight);
 
 // Chargement du modèle avec mise en cache
@@ -70,46 +63,28 @@ const loadModel = (path, scale, position) => {
 loadModel('src/assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
 
 // Gestion optimisée du redimensionnement avec debounce
-let resizeTimeout;
 window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    }, 100);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 });
-// Affichage FPS
-const fpsDisplay = document.createElement('div');
-fpsDisplay.style.cssText = 'position:absolute;top:10px;left:10px;color:white;background:rgba(0,0,0,0.5);padding:3px;font-size:12px;';
-document.body.appendChild(fpsDisplay);
-let frameCount = 0, lastTime = performance.now(), fps = 0;
+
 
 // Animation ultra-légère
 const animate = (time) => {
     requestAnimationFrame(animate);
-
-    // Calcul FPS
-    frameCount++;
-    const currentTime = performance.now();
-    if (currentTime - lastTime >= 1000) {
-        fps = frameCount;
-        frameCount = 0;
-        lastTime = currentTime;
-        fpsDisplay.textContent = `FPS: ${fps}`;
-    }
-
-    orbit.update();
     renderer.render(scene, camera);
 };
 requestAnimationFrame(animate);
 
 // UI avec vérification rapide
-const mainMenu = document.getElementById('intro-menu');
+const menuContainer = document.getElementById('menu-container');
+menuContainer.appendChild(renderer.domElement);
+
 const gameUI = document.getElementById('game-ui');
 const startBtn = document.getElementById('start-game-btn');
 
 startBtn?.addEventListener('click', () => {
-    mainMenu.style.display = 'none';
+    menuContainer.style.display = 'none';
     gameUI.style.display = 'block';
 });

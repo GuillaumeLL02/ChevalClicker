@@ -9,10 +9,11 @@
 <body>
     <!-- Page 1 : Menu principal -->
     <div id="main-menu" class="page">
-        <h1>ChevalClicker</h1>
-        <button class="start"><img src="/src/UI/svg/Buttons/Rect/PlayText/Default.svg" alt="Play"></button>
-        <button class="son"><img src="/src/UI/svg/Buttons/Square/SoundOn/Default.svg" alt="Son"></button>
+        <div id="menu-container"></div> <!-- Conteneur pour Three.js -->
+        <button id="start-game-btn">Commencer</button>
     </div>
+
+    
 
     <!-- Page 2 : Interface avec cheval 2D -->
     <div id="game-ui" class="page" style="display: none;">
@@ -21,7 +22,6 @@
                 Money : <div class="MoneyAmmount">40 $</div>
             </div>
         </div>
-
         <div class="game-content">
             <div class="UpgradePanel">
                 <div class="Upgrade" id="FirstUpgrade">
@@ -39,7 +39,6 @@
                     <button id="SecondUpgradeButton" class="UpgradeButton">Buy</button>
                 </div>
             </div>
-
             <div class="ChevalPanel">
                 <div class="UpgradePanelLeft">
                     <h2>Nourriture</h2>
@@ -57,10 +56,8 @@
                     <h2>Stats Panel</h2>
                 </div>
             </div>
-
             <button id="to-3d-btn">Voir en 3D</button>
         </div>
-
         <footer>Footer</footer>
     </div>
 
@@ -72,5 +69,6 @@
 
     <!-- Script unique -->
     <script src="/src/js/script.js" type="module"></script>
+    <script src="/src/js/scriptmenu.js" type="module"></script>
 </body>
 </html>
