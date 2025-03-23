@@ -4,6 +4,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
 
 /* Styles de base pour le body */
 body {
@@ -53,26 +62,25 @@ body {
   100% { transform: scale(1); }
 }
 
-#main-menu .start, #main-menu .son {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-#main-menu .start img {
-  width: 200px;
-  height: 100px;
-  margin: 20px 0;
-}
-
-#main-menu .son img {
-  width: 80px;
-  height: 100px;
+#start-game-btn {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
 }
+#start-game-btn:hover {
+  background-color: #45a049;
+}
+
+
 
 /* Page 2 : Interface avec cheval 2D */
 #game-ui {
