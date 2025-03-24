@@ -1,20 +1,18 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 // Préférer const à let quand possible et regrouper les initialisations
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ 
-    antialias: false, 
-    powerPreference: 'low-power', // Priorité basse consommation
-    precision: 'lowp' // Précision basse pour shaders
+    antialias: true, 
 });
+
 // Configuration initiale efficace
 scene.background = new THREE.Color(0xffffff);
-camera.position.set(85, 12, 72);
+camera.position.set(100, 17, 46);
 camera.lookAt(0, 0, 0);
-console.log('Camera position:', camera.position);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimisation pour écrans retina
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -28,8 +26,15 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
-// Chargement du modèle avec mise en cache
+// Configuration DRACOLoader
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/'); // CDN public
+dracoLoader.setDecoderConfig({ type: 'js' }); // Utilise le décodeur JS
+
+// Configuration GLTFLoader avec DRACO
 const loader = new GLTFLoader();
+loader.setDRACOLoader(dracoLoader);
+
 const loadModel = (path, scale, position) => {
     loader.load(
         path,
@@ -62,20 +67,19 @@ const loadModel = (path, scale, position) => {
 // Charger le modèle une seule fois au démarrage
 loadModel('src/assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
 
-// Gestion optimisée du redimensionnement avec debounce
+// Gestion optimisée du redimensionnement
 window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 });
 
-
-// Animation ultra-légère
-const animate = (time) => {
+// Animation avec mise à jour des OrbitControls
+const animate = () => {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 };
-requestAnimationFrame(animate);
+animate();
 
 // UI avec vérification rapide
 const menuContainer = document.getElementById('menu-container');
@@ -87,4 +91,5 @@ const startBtn = document.getElementById('start-game-btn');
 startBtn?.addEventListener('click', () => {
     menuContainer.style.display = 'none';
     gameUI.style.display = 'block';
+    startBtn.style.display = 'none';
 });

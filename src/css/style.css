@@ -35,6 +35,7 @@ body {
   align-items: center;
   background: transparent; /* Laisse la scène Three.js visible */
   overflow: hidden;
+  
 }
 
 #menu-container {
