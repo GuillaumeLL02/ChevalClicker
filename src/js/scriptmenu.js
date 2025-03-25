@@ -6,11 +6,10 @@ function main() {
     // Initialisation
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    console.log(camera.position);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
     // Configuration de la caméra
-    camera.position.set(92.5548164929538, 9.163929861846974, 32.62527597543739 );
+    camera.position.set(90, 9, 30);
     camera.lookAt(0, 0, 0);
 
     // Configuration du renderer
@@ -22,29 +21,31 @@ function main() {
     const menuContainer = document.getElementById('menu-container');
     menuContainer.appendChild(renderer.domElement);
 
-
     // Gestion du chargement avec LoadingManager
     const loadingManager = new THREE.LoadingManager();
-    const progressBar = document.getElementById('progress-bar');
     const progressContainer = document.querySelector('.progress-bar-container');
+    const loadingBar = document.querySelector('.div');
     const startBtn = document.getElementById('start-game-btn');
 
     loadingManager.onStart = () => {
         console.log('Début du chargement');
         progressContainer.style.display = 'flex';
-        startBtn.style.display = 'none'; // Caché au départ
+        startBtn.style.display = 'none';
+        loadingBar.style.backgroundPosition = '100% 0'; // 0% chargé
     };
 
     loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-        const progress = (itemsLoaded / itemsTotal) * 100;
-        progressBar.value = progress;
-        console.log(`Chargement : ${itemsLoaded}/${itemsTotal} - ${progress.toFixed(2)}%`);
+        const progress = itemsLoaded / itemsTotal;
+        const percentage = (1 - progress) * 100;
+        loadingBar.style.backgroundPosition = `${percentage}% 0`;
+        console.log(`Chargement : ${itemsLoaded}/${itemsTotal} - ${(progress * 100).toFixed(2)}%`);
     };
 
     loadingManager.onLoad = () => {
         console.log('Chargement terminé');
-        progressContainer.style.display = 'none'; // Masquer immédiatement
-        startBtn.style.display = 'block'; // Afficher immédiatement
+        loadingBar.style.backgroundPosition = '0% 0'; // 100% chargé
+        progressContainer.style.display = 'none'; // Disparition immédiate
+        startBtn.style.display = 'block';
     };
 
     loadingManager.onError = (url) => {
@@ -103,7 +104,7 @@ function main() {
                     }
                 });
                 scene.add(model);
-                renderer.render(scene, camera); // Forcer un rendu immédiat
+                renderer.render(scene, camera);
             },
             undefined,
             (error) => console.error(`Erreur chargement ${path} :`, error)
@@ -133,6 +134,8 @@ function main() {
         menuContainer.style.display = 'none';
         gameUI.style.display = 'block';
         startBtn.style.display = 'none';
+        // Assure que la barre reste masquée dans la nouvelle scène
+        progressContainer.style.display = 'none';
     });
 }
 

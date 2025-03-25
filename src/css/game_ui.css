@@ -1,0 +1,202 @@
+/* Réinitialisation globale */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Styles de base pour le body */
+  body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+  
+  /* Styles pour les pages */
+  .page {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Page 2 : Interface avec cheval 2D */
+  #game-ui {
+    display: none;
+  }
+  
+  .MoneyPanel {
+    width: 100%;
+    background-color: #f39c12;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  .MoneyDisplay {
+    font-size: 20px;
+    width: 200px;
+    margin: 0 auto;
+    padding: 5px;
+  }
+  
+  .game-content {
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding: 20px;
+    background-image: url('/src/images/Ferme.jpg');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 60px;
+    left: 0;
+  }
+  
+  .UpgradePanel {
+    padding: 10px;
+    background-color: #8B4513;
+    width: 80%;
+    height: 100px;
+    display: flex;
+    gap: 10px;
+    margin: 0 auto;
+  }
+  
+  .ChevalPanel {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 70px;
+  }
+  
+  .ClickCheval {
+    height: 100%;
+    width: 25%;
+    position: absolute;
+  }
+  
+  #buttonCheval {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    background-image: url('/src/images/Cheval.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.2s ease;
+  }
+  
+  #buttonCheval:hover {
+    transform: scale(0.95);
+  }
+  
+  #buttonCheval.tourner-droit {
+    transform: rotate(30deg) scale(1.2);
+  }
+  
+  #buttonCheval.tourner-gauche {
+    transform: rotate(-30deg) scale(1.2);
+  }
+  
+  .StatPanel {
+    position: absolute;
+    right: 0;
+    height: 80%;
+    width: 15%;
+    background-color: #804040;
+  }
+  
+  .UpgradePanelLeft {
+    position: absolute;
+    left: 0;
+    height: 80%;
+    width: 15%;
+    background-color: #804040;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .Upgrade, .Foods {
+    background-color: gray;
+    border: 1px solid #151515;
+    padding: 5px;
+    width: 150px;
+    height: 70px;
+    position: relative;
+  }
+  
+  .Name {
+    position: absolute;
+    left: 60px;
+    top: 15px;
+    font-size: 15px;
+  }
+  
+  .Number {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .Price {
+    position: absolute;
+    bottom: 10px;
+    right: 40px;
+  }
+  
+  .UpgradeButton {
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    padding: 2px 5px;
+  }
+  
+  .UpgradeImage {
+    width: 40px;
+    position: absolute;
+    left: 5px;
+    top: 0;
+  }
+  
+  #to-3d-btn {
+    width: 200px;
+    padding: 15px;
+    font-size: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #to-3d-btn:hover {
+    background-color: #555;
+  }
+  
+  footer {
+    width: 100%;
+    height: 30px;
+    background-color: #8B4513;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }

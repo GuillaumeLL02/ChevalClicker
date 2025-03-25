@@ -1,0 +1,54 @@
+/* Réinitialisation globale */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Styles de base pour le body */
+  body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+  
+  /* Styles pour les pages */
+  .page {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Page 3 : Cheval en 3D */
+  #cheval-3d {
+    display: none;
+    background-color: #2ecc71;
+  }
+  
+  #container3D {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  #back-to-ui-btn {
+    width: 200px;
+    padding: 15px;
+    font-size: 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #back-to-ui-btn:hover {
+    background-color: #da190b;
+  }
