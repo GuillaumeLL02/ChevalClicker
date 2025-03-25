@@ -4,7 +4,18 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 // Préférer const à let quand possible et regrouper les initialisations
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+function updateCamera() {
+    camera.updateProjectionMatrix();
+  }
+   
+  const gui = new GUI();
+  gui.add(camera, 'fov', 1, 180).onChange(updateCamera);
+  const minMaxGUIHelper = new MinMaxGUIHelper(camera, 'near', 'far', 0.1);
+  gui.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('near').onChange(updateCamera);
+  gui.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('far').onChange(updateCamera);
+
+  
 const renderer = new THREE.WebGLRenderer({ 
     antialias: true, 
 });
@@ -42,26 +53,7 @@ const loadModel = (path, scale, position) => {
             const model = gltf.scene;
             model.scale.set(scale.x, scale.y, scale.z);
             model.position.set(position.x, position.y, position.z);
-
-            model.traverse((child) => {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                    if (child.name.toLowerCase().includes('water') || child.name.toLowerCase().includes('eau')) {
-                        child.material = new THREE.MeshStandardMaterial({
-                            transparent: true,
-                            opacity: 0.7,
-                            color: 0x00efff,
-                            side: THREE.DoubleSide
-                        });
-                    }
-                }
-            });
-            scene.add(model);
-        },
-        undefined,
-        (error) => console.error(`Erreur chargement ${path} :`, error)
-    );
+        })
 };
 
 // Charger le modèle une seule fois au démarrage
