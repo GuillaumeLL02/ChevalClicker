@@ -24,6 +24,21 @@ body {
   transition: opacity 0.5s ease-in-out;
 }
 
+#fullscreen-toggle {
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+#fullscreen-toggle:hover {
+  transform: scale(1.1);
+  background: rgba(0,0,0,0.7);
+}
+
+#fullscreen-toggle:active {
+  transform: scale(0.95);
+}
+
+
 /* Page 1 : Menu principal */
 #main-menu {
   position: relative;
@@ -33,28 +48,53 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: transparent; /* Laisse la scène Three.js visible */
+  background: transparent;
   overflow: hidden;
-  
 }
 
 #menu-container {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0; /* Assure que la scène est derrière les autres éléments */
+  z-index: 0; /* Assure que le conteneur Three.js est en arrière-plan */
+}
+
+.progress-bar-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* Augmenté pour plus de visibilité */
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column; /* Alignement vertical */
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Au-dessus de #menu-container */
+}
+
+#progress-bar {
+  width: 80%; /* Plus large par rapport au conteneur */
+  height: 20px; /* Hauteur plus visible */
+  margin-top: 10px; /* Espacement après le label */
+}
+
+label {
+  color: white;
+  font-size: 1.5rem;
 }
 
 #start-game-btn {
   position: relative;
-  z-index: 1; /* Place le bouton au-dessus de la scène */
+  z-index: 1; /* Au-dessus de #menu-container, mais peut être ajusté */
   padding: 15px 30px;
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.7); /* Bouton semi-transparent */
+  background-color: rgba(0, 0, 0, 0.7);
   border: 2px solid #fff;
   border-radius: 10px;
   cursor: pointer;
@@ -87,7 +127,6 @@ body {
 }
 
 .MoneyDisplay {
-  background-color: black;
   font-size: 20px;
   width: 200px;
   margin: 0 auto;
@@ -207,8 +246,8 @@ body {
 
 .UpgradeButton {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 8px;
+  right: 0px;
   padding: 2px 5px;
 }
 
@@ -263,7 +302,66 @@ footer {
   bottom: 0;
   left: 0;
 }
+.UpgradePanelLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
 
+.Foods {
+  display: flex;
+  align-items: center;
+  background-color: rgba(139, 69, 19, 0.7);
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+
+.Foods .UpgradeImage {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.Foods .Name {
+  flex-grow: 1;
+  font-weight: bold;
+}
+
+.Foods .Price, .Foods .Number {
+  margin-right: 10px;
+}
+
+.Foods .UpgradeButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.Foods .UpgradeButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.StatPanel {
+  background-color: rgba(139, 69, 19, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+}
+
+.StatPanel h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.StatPanel p {
+  margin: 5px 0;
+}
 /* Page 3 : Cheval en 3D */
 #cheval-3d {
   display: none;

@@ -2,86 +2,139 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-// Préférer const à let quand possible et regrouper les initialisations
-const scene = new THREE.Scene();
+function main() {
+    // Initialisation
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    console.log(camera.position);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-function updateCamera() {
-    camera.updateProjectionMatrix();
-  }
-   
-  const gui = new GUI();
-  gui.add(camera, 'fov', 1, 180).onChange(updateCamera);
-  const minMaxGUIHelper = new MinMaxGUIHelper(camera, 'near', 'far', 0.1);
-  gui.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('near').onChange(updateCamera);
-  gui.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('far').onChange(updateCamera);
+    // Configuration de la caméra
+    camera.position.set(92.5548164929538, 9.163929861846974, 32.62527597543739 );
+    camera.lookAt(0, 0, 0);
 
-  
-const renderer = new THREE.WebGLRenderer({ 
-    antialias: true, 
-});
-
-// Configuration initiale efficace
-scene.background = new THREE.Color(0xffffff);
-camera.position.set(100, 17, 46);
-camera.lookAt(0, 0, 0);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimisation pour écrans retina
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-document.body.appendChild(renderer.domElement);
-
-
-// Éclairage optimisé
-scene.add(new THREE.AmbientLight(0xffffff, 0.7)); // Réduction d'intensité
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(10, 20, 10);
-scene.add(directionalLight);
-
-// Configuration DRACOLoader
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/'); // CDN public
-dracoLoader.setDecoderConfig({ type: 'js' }); // Utilise le décodeur JS
-
-// Configuration GLTFLoader avec DRACO
-const loader = new GLTFLoader();
-loader.setDRACOLoader(dracoLoader);
-
-const loadModel = (path, scale, position) => {
-    loader.load(
-        path,
-        (gltf) => {
-            const model = gltf.scene;
-            model.scale.set(scale.x, scale.y, scale.z);
-            model.position.set(position.x, position.y, position.z);
-        })
-};
-
-// Charger le modèle une seule fois au démarrage
-loadModel('src/assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
-
-// Gestion optimisée du redimensionnement
-window.addEventListener('resize', () => {
+    // Configuration du renderer
     renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-});
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-// Animation avec mise à jour des OrbitControls
-const animate = () => {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-};
-animate();
+    // Ajout du renderer au menu-container
+    const menuContainer = document.getElementById('menu-container');
+    menuContainer.appendChild(renderer.domElement);
 
-// UI avec vérification rapide
-const menuContainer = document.getElementById('menu-container');
-menuContainer.appendChild(renderer.domElement);
 
-const gameUI = document.getElementById('game-ui');
-const startBtn = document.getElementById('start-game-btn');
+    // Gestion du chargement avec LoadingManager
+    const loadingManager = new THREE.LoadingManager();
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.querySelector('.progress-bar-container');
+    const startBtn = document.getElementById('start-game-btn');
 
-startBtn?.addEventListener('click', () => {
-    menuContainer.style.display = 'none';
-    gameUI.style.display = 'block';
-    startBtn.style.display = 'none';
-});
+    loadingManager.onStart = () => {
+        console.log('Début du chargement');
+        progressContainer.style.display = 'flex';
+        startBtn.style.display = 'none'; // Caché au départ
+    };
+
+    loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+        const progress = (itemsLoaded / itemsTotal) * 100;
+        progressBar.value = progress;
+        console.log(`Chargement : ${itemsLoaded}/${itemsTotal} - ${progress.toFixed(2)}%`);
+    };
+
+    loadingManager.onLoad = () => {
+        console.log('Chargement terminé');
+        progressContainer.style.display = 'none'; // Masquer immédiatement
+        startBtn.style.display = 'block'; // Afficher immédiatement
+    };
+
+    loadingManager.onError = (url) => {
+        console.error(`Erreur lors du chargement de : ${url}`);
+    };
+
+    // Ajout d'un background avec une texture
+    const textureLoader = new THREE.TextureLoader(loadingManager);
+    textureLoader.load(
+        '/src/images/sky_image.jpg',
+        (texture) => {
+            scene.background = texture;
+        },
+        undefined,
+        (error) => {
+            console.error('Erreur lors du chargement du background :', error);
+            scene.background = new THREE.Color(0x87ceeb);
+        }
+    );
+
+    // Éclairage
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(10, 20, 10);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+
+    // Configuration DRACOLoader et GLTFLoader
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+    dracoLoader.setDecoderConfig({ type: 'js' });
+
+    const loader = new GLTFLoader(loadingManager);
+    loader.setDRACOLoader(dracoLoader);
+
+    // Fonction pour charger le modèle
+    const loadModel = (path, scale, position) => {
+        loader.load(
+            path,
+            (gltf) => {
+                const model = gltf.scene;
+                model.scale.set(scale.x, scale.y, scale.z);
+                model.position.set(position.x, position.y, position.z);
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        if (child.name.toLowerCase().includes('water')) {
+                            child.material = new THREE.MeshStandardMaterial({
+                                transparent: true,
+                                opacity: 0.7,
+                                color: 0x00efff,
+                                side: THREE.DoubleSide
+                            });
+                        }
+                    }
+                });
+                scene.add(model);
+                renderer.render(scene, camera); // Forcer un rendu immédiat
+            },
+            undefined,
+            (error) => console.error(`Erreur chargement ${path} :`, error)
+        );
+    };
+
+    // Charger le modèle
+    loadModel('src/assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
+
+    // Gestion du redimensionnement
+    window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
+
+    // Boucle d'animation
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Transition vers game-ui
+    const gameUI = document.getElementById('game-ui');
+    startBtn.addEventListener('click', () => {
+        menuContainer.style.display = 'none';
+        gameUI.style.display = 'block';
+        startBtn.style.display = 'none';
+    });
+}
+
+// Lancer l'application
+main();
