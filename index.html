@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>ChevalClicker</title>
-    <link href="/src/css/cheval_3D.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/main_menu.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/game_ui.css" rel="stylesheet" type="text/css" />
 </head>
@@ -27,6 +26,7 @@
         <div class="MoneyPanel">
             <div class="MoneyDisplay">
                 Money : <div class="MoneyAmmount">0 $</div>
+                <button id="back-to-menu-btn">Menu</button>
             </div>
         </div>
         <div class="game-content">
@@ -78,22 +78,17 @@
                     <h2>Horse Stats</h2>
                 </div>
             </div>
-            <button id="to-3d-btn">Voir en 3D</button>
         </div>
         <footer>Cheval Clicker Game</footer>
     </div>
 
-    <!-- Page 3 : Cheval en 3D -->
-    <div id="cheval-3d" class="page" style="display: none;">
-        <div id="container3D"></div>
-        <button id="back-to-ui-btn">Retour</button>
-    </div>
-
     <!-- Script unique -->
-    <script src="/src/js/script_3D.js" type="module"></script>
     <script src="/src/js/scriptmenu.js" type="module"></script>
     <script src="/src/js/script_game_mechanics.js" type="module"></script>
     <script src="/src/js/fullscreen.js" type="module"></script>
     <script src="src/js/script_gameplay.js" type="module"></script>
+    
+    <!-- Contrôle de la musique -->
+    <script src="/src/js/music-control.js" type="module"></script>
 </body>
 </html>

@@ -1,37 +1,63 @@
+// src/js/scriptmenu.js
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 function main() {
-    // Initialisation
+    // Vérifier si l'utilisateur était dans le jeu avant le rafraîchissement
+    const wasInGame = localStorage.getItem('inGame') === 'true';
+
+    // Initialisation des éléments UI
+    const menuContainer = document.getElementById('menu-container');
+    const gameUI = document.getElementById('game-ui');
+    const progressContainer = document.querySelector('.progress-bar-container');
+    const startBtn = document.getElementById('start-game-btn');
+
+    // Configurer l'UI en fonction de l'état précédent
+    if (wasInGame) {
+        menuContainer.style.display = 'none';
+        gameUI.style.display = 'block';
+        progressContainer.style.display = 'none';
+        startBtn.style.display = 'none';
+    } else {
+        menuContainer.style.display = 'block';
+        gameUI.style.display = 'none';
+        progressContainer.style.display = 'flex'; // Afficher la barre de progression au départ
+        startBtn.style.display = 'none'; // Caché jusqu'à la fin du chargement
+    }
+
+    // Bouton retour au menu
+    document.getElementById('back-to-menu-btn').addEventListener('click', () => {
+        gameUI.style.display = 'none';
+        menuContainer.style.display = 'block';
+        startBtn.style.display = 'block';
+        localStorage.setItem('inGame', 'false');
+    });
+
+    // Initialisation Three.js
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-    // Configuration de la caméra
     camera.position.set(90, 9, 30);
     camera.lookAt(0, 0, 0);
 
-    // Configuration du renderer
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    // Ajout du renderer au menu-container
-    const menuContainer = document.getElementById('menu-container');
     menuContainer.appendChild(renderer.domElement);
 
     // Gestion du chargement avec LoadingManager
     const loadingManager = new THREE.LoadingManager();
-    const progressContainer = document.querySelector('.progress-bar-container');
     const loadingBar = document.querySelector('.div');
-    const startBtn = document.getElementById('start-game-btn');
 
     loadingManager.onStart = () => {
         console.log('Début du chargement');
-        progressContainer.style.display = 'flex';
-        startBtn.style.display = 'none';
-        loadingBar.style.backgroundPosition = '100% 0'; // 0% chargé
+        if (!wasInGame) {
+            progressContainer.style.display = 'flex';
+            startBtn.style.display = 'none';
+        }
+        loadingBar.style.backgroundPosition = '100% 0';
     };
 
     loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -43,9 +69,11 @@ function main() {
 
     loadingManager.onLoad = () => {
         console.log('Chargement terminé');
-        loadingBar.style.backgroundPosition = '0% 0'; // 100% chargé
-        progressContainer.style.display = 'none'; // Disparition immédiate
-        startBtn.style.display = 'block';
+        loadingBar.style.backgroundPosition = '0% 0';
+        progressContainer.style.display = 'none';
+        if (!wasInGame) {
+            startBtn.style.display = 'block'; // Afficher le bouton Start après le chargement
+        }
     };
 
     loadingManager.onError = (url) => {
@@ -129,15 +157,18 @@ function main() {
     animate();
 
     // Transition vers game-ui
-    const gameUI = document.getElementById('game-ui');
     startBtn.addEventListener('click', () => {
         menuContainer.style.display = 'none';
         gameUI.style.display = 'block';
         startBtn.style.display = 'none';
-        // Assure que la barre reste masquée dans la nouvelle scène
         progressContainer.style.display = 'none';
+        localStorage.setItem('inGame', 'true');
     });
-}
 
-// Lancer l'application
+    window.addEventListener('beforeunload', (event) => {
+        if (!document.visibilityState || document.visibilityState === 'hidden') {
+            localStorage.removeItem('inGame'); // On vide seulement si l'utilisateur quitte vraiment
+        }
+    });    
+}
 main();

@@ -49,7 +49,6 @@
     width: 100%;
     height: calc(100vh - 60px);
     padding: 20px;
-    background-image: url('/src/images/Ferme.jpg');
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -76,37 +75,7 @@
     top: 70px;
   }
   
-  .ClickCheval {
-    height: 100%;
-    width: 25%;
-    position: absolute;
-  }
-  
-  #buttonCheval {
-    background-color: transparent;
-    cursor: pointer;
-    border: none;
-    background-image: url('/src/images/Cheval.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    transition: transform 0.2s ease;
-  }
-  
-  #buttonCheval:hover {
-    transform: scale(0.95);
-  }
-  
-  #buttonCheval.tourner-droit {
-    transform: rotate(30deg) scale(1.2);
-  }
-  
-  #buttonCheval.tourner-gauche {
-    transform: rotate(-30deg) scale(1.2);
-  }
-  
+
   .StatPanel {
     position: absolute;
     right: 0;
@@ -120,12 +89,15 @@
     left: 0;
     height: 80%;
     width: 15%;
-    background-color: #804040;
+    background-image: url('/src/images/Wood015_1K-JPG_Color.jpg'); /* Utilisation de background-image */
+    background-size: cover; /* Ajuste l'image pour couvrir toute la zone */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Évite la répétition */
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-  }
+}
   
   .Upgrade, .Foods {
     background-color: gray;
@@ -169,25 +141,26 @@
     top: 0;
   }
   
-  #to-3d-btn {
-    width: 200px;
-    padding: 15px;
-    font-size: 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  #back-to-menu-btn {
+    font-size: 1 rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  #to-3d-btn:hover {
-    background-color: #555;
-  }
+    left: 20px; /* Position à gauche */
+    top: 10px; /* Position en haut */
+    z-index: 100; /* S'assurer qu'il est au-dessus des autres éléments */
+}
+
+#back-to-menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+    transform: scale(1.1);
+}
   
   footer {
     width: 100%;

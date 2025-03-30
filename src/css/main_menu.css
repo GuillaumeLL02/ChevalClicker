@@ -68,6 +68,10 @@ body {
   z-index: 10;
   display: none; /* Caché au départ */
 }
+/* Nouvelle classe pour l'état visible */
+#start-game-btn.visible {
+  display: block;
+}
 
 #start-game-btn:hover {
   background-color: rgba(255, 255, 255, 0.9);
