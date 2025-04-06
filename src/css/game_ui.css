@@ -1,175 +1,62 @@
 /* Réinitialisation globale */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Styles de base pour le body */
-  body {
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    background-color: #f0f0f0;
-    overflow: hidden;
-  }
-  
-  /* Styles pour les pages */
-  .page {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  /* Page 2 : Interface avec cheval 2D */
-  #game-ui {
-    display: none;
-  }
-  
-  .MoneyPanel {
-    width: 100%;
-    background-color: #f39c12;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  
-  .MoneyDisplay {
-    font-size: 20px;
-    width: 200px;
-    margin: 0 auto;
-    padding: 5px;
-  }
-  
-  .game-content {
-    width: 100%;
-    height: calc(100vh - 60px);
-    padding: 20px;
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    top: 60px;
-    left: 0;
-  }
-  
-  .UpgradePanel {
-    padding: 10px;
-    background-color: #8B4513;
-    width: 80%;
-    height: 100px;
-    display: flex;
-    gap: 10px;
-    margin: 0 auto;
-  }
-  
-  .ChevalPanel {
-    width: 100%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    top: 70px;
-  }
-  
-
-  .StatPanel {
-    position: absolute;
-    right: 0;
-    height: 80%;
-    width: 15%;
-    background-color: #804040;
-  }
-  
-  .UpgradePanelLeft {
-    position: absolute;
-    left: 0;
-    height: 80%;
-    width: 15%;
-    background-image: url('/src/images/Wood015_1K-JPG_Color.jpg'); /* Utilisation de background-image */
-    background-size: cover; /* Ajuste l'image pour couvrir toute la zone */
-    background-position: center; /* Centre l'image */
-    background-repeat: no-repeat; /* Évite la répétition */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-  
-  .Upgrade, .Foods {
-    background-color: gray;
-    border: 1px solid #151515;
-    padding: 5px;
-    width: 150px;
-    height: 70px;
-    position: relative;
-  }
-  
-  .Name {
-    position: absolute;
-    left: 60px;
-    top: 15px;
-    font-size: 15px;
-  }
-  
-  .Number {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-  }
-  
-  .Price {
-    position: absolute;
-    bottom: 10px;
-    right: 40px;
-  }
-  
-  .UpgradeButton {
-    position: absolute;
-    bottom: 8px;
-    right: 0;
-    padding: 2px 5px;
-  }
-  
-  .UpgradeImage {
-    width: 40px;
-    position: absolute;
-    left: 5px;
-    top: 0;
-  }
-  
-  #back-to-menu-btn {
-    font-size: 1 rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 2px solid #fff;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: absolute;
-    left: 20px; /* Position à gauche */
-    top: 10px; /* Position en haut */
-    z-index: 100; /* S'assurer qu'il est au-dessus des autres éléments */
+
+/* Styles de base pour le body */
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+/* Styles pour les pages */
+.page {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Page 2 : Interface avec cheval 2D */
+#game-ui {
+  display: none;
+}
+
+/* Contenu principal du jeu */
+.game-content {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 60px;
+  left: 0;
+}
+
+/* Bouton retour au menu */
+#back-to-menu-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 20px;
+  /* Position à gauche */
+  top: 10px;
+  /* Position en haut */
+  width: 50px;
+  /* Largeur du bouton */
 }
 
 #back-to-menu-btn:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #000;
-    transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  transform: scale(1.1);
 }
-  
-  footer {
-    width: 100%;
-    height: 30px;
-    background-color: #8B4513;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-  }

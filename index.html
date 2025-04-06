@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>ChevalClicker</title>
     <link href="/src/css/main_menu.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/game_ui.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/health-bar.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/upgrade.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/money.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
 
     <!-- Page 1 : Menu principal -->
@@ -23,63 +28,84 @@
 
     <!-- Page 2 : Interface avec cheval 2D -->
     <div id="game-ui" class="page" style="display: none;">
-        <div class="MoneyPanel">
-            <div class="MoneyDisplay">
-                Money : <div class="MoneyAmmount">0 $</div>
-                <button id="back-to-menu-btn">Menu</button>
+        <!-- Ajouter ce code dans votre HTML, par exemple à l'intérieur de la div "game-ui" -->
+        <div class="horse-health-ui">
+            <div class="horse-icon">
+                <img src="src/images/horse_9276546.png" alt="Logo cheval">
+            </div>
+            <div class="health-bar-container">
+                <div class="health-info">
+                    <div class="health-label">PV</div>
+                    <div class="health-value">100/100</div>
+                </div>
+                <div class="health-bar">
+                    <div class="health-fill"></div>
+                </div>
             </div>
         </div>
         <div class="game-content">
-            <div class="UpgradePanel">
-                <div class="Upgrade" id="FirstUpgrade">
-                    <img class="UpgradeImage" src="/src/images/fence.png" alt="Pâtures">
-                    <div class="Name">Pâture Basic</div>
-                    <div class="Price">100$</div>
-                    <div class="Number">Lv: 1</div>
-                    <button id="FirstUpgradeButton" class="UpgradeButton">Buy</button>
-                </div>
-                <div class="Upgrade" id="SecondUpgrade">
-                    <img class="UpgradeImage" src="/src/images/fence2.png" alt="Pâture Améliorée">
-                    <div class="Name">Pâture Améliorée</div>
-                    <div class="Price">250$</div>
-                    <div class="Number">Lv: 0</div>
-                    <button id="SecondUpgradeButton" class="UpgradeButton">Buy</button>
-                </div>
-            </div>
             <div class="ChevalPanel">
                 <div class="UpgradePanelLeft">
                     <h2>Nourriture</h2>
-                    <div class="Foods" id="FirstFood">
-                        <img class="UpgradeImage" src="/src/images/Carrot.png" alt="Carottes">
-                        <div class="Name">Carottes</div>
-                        <div class="Price">10$</div>
-                        <div class="Number">Lv: 1</div>
-                        <button id="FirstFoodButton" class="UpgradeButton">Buy</button>
-                    </div>
-                    <div class="Foods" id="SecondFood">
-                        <img class="UpgradeImage" src="/src/images/Hay.png" alt="Foin">
-                        <div class="Name">Foin</div>
-                        <div class="Price">25$</div>
-                        <div class="Number">Lv: 0</div>
-                        <button id="SecondFoodButton" class="UpgradeButton">Buy</button>
-                    </div>
-                    <div class="Foods" id="ThirdFood">
-                        <img class="UpgradeImage" src="/src/images/Granules.png" alt="Granulés">
-                        <div class="Name">Granulés</div>
-                        <div class="Price">50$</div>
-                        <div class="Number">Lv: 0</div>
-                        <button id="ThirdFoodButton" class="UpgradeButton">Buy</button>
+                    <div class="food-container">
+                        <div class="Foods" id="FirstFood">
+                            <img class="UpgradeImage" src="/src/images/Carrot.png" alt="Carottes">
+                            <div class="text-content">
+                                <div class="Name">Carottes</div>
+                                <div class="Price">10$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FirstFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="SecondFood">
+                            <img class="UpgradeImage" src="/src/images/hay-roll.png" alt="Foin">
+                            <div class="text-content">
+                                <div class="Name">Foin</div>
+                                <div class="Price">25$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="SecondFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="ThirdFood">
+                            <img class="UpgradeImage" src="/src/images/oats.png" alt="Granulés">
+                            <div class="text-content">
+                                <div class="Name">Granulés</div>
+                                <div class="Price">50$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="ThirdFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="FourthFood">
+                            <img class="UpgradeImage" src="/src/images/apple.png" alt="Pomme">
+                            <div class="text-content">
+                                <div class="Name">Pomme</div>
+                                <div class="Price">100$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FourthFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
+
+                        <div class="Foods" id="FifthFood">
+                            <img class="UpgradeImage" src="/src/images/golden-apple.png" alt="Golden Pomme">
+                            <div class="text-content">
+                                <div class="Name">Golden Pomme</div>
+                                <div class="Price">100$</div>
+                                <div class="Number">Lv: 0</div>
+                            </div>
+                            <button id="FifthFoodButton" class="UpgradeButton">Buy</button>
+                        </div>
                     </div>
                 </div>
+
                 <div class="ClickCheval">
                     <button id="buttonCheval"></button>
                 </div>
-                <div class="StatPanel">
-                    <h2>Horse Stats</h2>
-                </div>
             </div>
         </div>
-        <footer>Cheval Clicker Game</footer>
+        <footer></footer>
     </div>
 
     <!-- Script unique -->
@@ -87,8 +113,10 @@
     <script src="/src/js/script_game_mechanics.js" type="module"></script>
     <script src="/src/js/fullscreen.js" type="module"></script>
     <script src="src/js/script_gameplay.js" type="module"></script>
-    
+    <script src="src/js/health-bar.js" type="module"></script>
+
     <!-- Contrôle de la musique -->
     <script src="/src/js/music-control.js" type="module"></script>
 </body>
+
 </html>

@@ -1,4 +1,3 @@
-// src/js/music-control.js
 (function() {
     function createMusicButton() {
         const buttonContainer = document.createElement('div');
@@ -94,7 +93,6 @@
             
             if (isMuted) {
                 backgroundMusic.pause();
-                backgroundMusic.currentTime = 0; // Réinitialiser au début (optionnel)
             } else {
                 if (isAudioUnlocked) {
                     backgroundMusic.play().catch(error => {

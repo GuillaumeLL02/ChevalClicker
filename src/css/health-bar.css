@@ -1,0 +1,127 @@
+/* Style pour l'interface PV du cheval */
+.horse-health-ui {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 10px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    max-width: 250px;
+    position: fixed;
+    top: 20px;
+    left:  20px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 100;
+    width: 100%;
+    margin: 10px ;
+}
+
+.horse-health-ui:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.horse-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #f8f0d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e6c974;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.horse-health-ui:hover .horse-icon {
+    transform: rotate(5deg);
+}
+
+.horse-icon img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+
+.health-bar-container {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.health-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    align-items: center;
+}
+
+.health-label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+.health-value {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+.health-bar {
+    height: 10px;
+    background-color: #e7e7e7;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.health-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #55c955, #78d778);
+    border-radius: 6px;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 5px rgba(87, 200, 87, 0.5);
+}
+
+/* Animation pour les dégâts */
+@keyframes damage-pulse {
+    0% { transform: scaleX(1); }
+    30% { transform: scaleX(0.97); background: #ff5252; }
+    100% { transform: scaleX(1); }
+}
+
+.damage {
+    animation: damage-pulse 0.6s ease;
+}
+
+/* Couleurs différentes selon le niveau de santé */
+.health-fill.high {
+    background: linear-gradient(to right, #55c955, #78d778);
+}
+
+.health-fill.medium {
+    background: linear-gradient(to right, #ffb347, #ffcc33);
+}
+
+.health-fill.low {
+    background: linear-gradient(to right, #ff5252, #ff7373);
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
+}
+
+/* Animation pour la guérison */
+@keyframes heal-glow {
+    0% { box-shadow: 0 0 5px rgba(87, 200, 87, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(87, 200, 87, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(87, 200, 87, 0.5); }
+}
+
+.healing {
+    animation: heal-glow 1s ease;
+}
