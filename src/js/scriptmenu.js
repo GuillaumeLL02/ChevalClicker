@@ -68,7 +68,6 @@ function main() {
         const progress = itemsLoaded / itemsTotal;
         const percentage = (1 - progress) * 100;
         loadingBar.style.backgroundPosition = `${percentage}% 0`;
-        console.log(`Chargement : ${itemsLoaded}/${itemsTotal} - ${(progress * 100).toFixed(2)}%`);
     };
 
     loadingManager.onLoad = () => {
@@ -168,6 +167,10 @@ function main() {
         progressContainer.style.display = 'none';
         document.querySelector('.title-container').style.display = 'none';
         localStorage.setItem('inGame', 'true');
+        // Forcer un redimensionnement après un court délai
+    setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, 100);
     });
 
     window.addEventListener('beforeunload', (event) => {

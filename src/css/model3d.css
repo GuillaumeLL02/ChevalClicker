@@ -16,6 +16,7 @@
   width: 100%;
   height: 100%;
   position: relative; /* Changé de absolute à relative */
+  display: block;
 }
 
 /* S'assurer que le canvas de Three.js prend tout l'espace disponible */

@@ -107,8 +107,8 @@ function main() {
     }
 
 
-    // Fonction pour charger le modèle avec optimisations
-    const loadModel = (path, scale, position) => {
+     // Fonction pour charger le modèle avec optimisations
+     const loadModel = (path, scale, position) => {
         loader.load(
             path,
             (object) => {
