@@ -24,7 +24,7 @@ class MusicController {
     initializeAudio() {
         // Créer l'élément audio s'il n'existe pas déjà
         if (!window.backgroundMusic) {
-            this.backgroundMusic = new Audio('/src/sound/menu_sound.mp3');
+            this.backgroundMusic = new Audio('/src/sound/Musicjeu.mp3');
             this.backgroundMusic.loop = true;
             this.backgroundMusic.volume = 0.5;
             window.backgroundMusic = this.backgroundMusic;

@@ -1,97 +1,82 @@
-// src/js/click-meter.js
+import { getCurrentStaminaMultiplier } from './stamina-bar.js';
+import { addMoney } from './money.js';
+import { saveGame, loadGame } from './save-manager.js';
 
-let clickMeterValue = 0;
-let clickMultiplier = 1;
-const MAX_METER = 100;
-const DECAY_RATE = 1.5; // Points perdus par seconde
-const CLICK_VALUE = 5; // Valeur gagnée par clic
 
-// Fonction pour initialiser les éléments DOM une fois le document chargé
-function initClickMeter() {
-  // Récupérer les éléments DOM
-  const clickMeterFill = document.querySelector('.click-meter-fill');
-  const clickMeterGlow = document.querySelector('.click-meter-glow');
-  const clickMeterMultiplier = document.querySelector('.click-meter-multiplier');
+let clickMeterValue = (loadGame()?.clickMeter) || 0;
+const MAX_METER = 1000;
+const DECAY_RATE = 2;
+const CLICK_VALUE = 1;
 
-  if (!clickMeterFill || !clickMeterGlow || !clickMeterMultiplier) {
-    console.error("Éléments de la jauge d'énergie introuvables");
-    return;
-  }
-
-  // Initialiser l'affichage
-  updateClickMeter();
-  
-  // Initialiser un intervalle pour faire diminuer progressivement le compteur
-  setInterval(decayClickMeter, 100);
-}
-
-// Fonction pour mettre à jour l'affichage du compteur
 function updateClickMeter() {
-  const clickMeterFill = document.querySelector('.click-meter-fill');
-  const clickMeterGlow = document.querySelector('.click-meter-glow');
-  const clickMeterMultiplier = document.querySelector('.click-meter-multiplier');
-  
-  if (!clickMeterFill || !clickMeterGlow || !clickMeterMultiplier) {
-    console.error("Éléments de la jauge d'énergie introuvables");
-    return clickMultiplier;
-  }
-  
-  // Limiter la valeur du compteur entre 0 et MAX_METER
   clickMeterValue = Math.max(0, Math.min(MAX_METER, clickMeterValue));
   
-  // Mettre à jour la hauteur de la barre
-  const heightPercentage = clickMeterValue + '%';
-  clickMeterFill.style.height = heightPercentage;
-  clickMeterGlow.style.height = heightPercentage;
+  const heightPercentage = (clickMeterValue / MAX_METER) * 100 + '%';
+  const fill = document.querySelector('.click-meter-fill');
+  const glow = document.querySelector('.click-meter-glow');
   
-  // Déterminer le multiplicateur en fonction de la valeur du compteur
-  if (clickMeterValue >= 80) {
-    clickMultiplier = 5;
-    clickMeterMultiplier.textContent = 'x5';
-    clickMeterMultiplier.style.color = '#ff0000';
-  } else if (clickMeterValue >= 60) {
-    clickMultiplier = 3;
-    clickMeterMultiplier.textContent = 'x3';
-    clickMeterMultiplier.style.color = '#ff4500';
-  } else if (clickMeterValue >= 40) {
-    clickMultiplier = 2;
-    clickMeterMultiplier.textContent = 'x2';
-    clickMeterMultiplier.style.color = '#ffa500';
-  } else {
-    clickMultiplier = 1;
-    clickMeterMultiplier.textContent = 'x1';
-    clickMeterMultiplier.style.color = '#ff6b00';
+  if (fill) fill.style.height = heightPercentage;
+  if (glow) glow.style.height = heightPercentage;
+
+  if (clickMeterValue >= MAX_METER) {
+    achieveGoal();
   }
-  
-  // Ajouter ou retirer les classes d'animation selon l'état
-  if (clickMultiplier > 1) {
-    clickMeterMultiplier.classList.add('multiplier-active');
-    clickMeterGlow.classList.add('glow-active');
-  } else {
-    clickMeterMultiplier.classList.remove('multiplier-active');
-    clickMeterGlow.classList.remove('glow-active');
-  }
-  
-  // Retourner le multiplicateur actuel pour l'utiliser dans vos calculs d'argent
-  return clickMultiplier;
+
+  saveGame(); // Sauvegarde à chaque changement
 }
 
-// Fonction pour incrémenter le compteur (à appeler lors d'un clic)
 function incrementClickMeter() {
-  clickMeterValue += CLICK_VALUE;
-  return updateClickMeter();
+  const staminaMultiplier = getCurrentStaminaMultiplier();
+  clickMeterValue += CLICK_VALUE * staminaMultiplier;
+  updateClickMeter();
 }
 
-// Fonction pour faire diminuer progressivement le compteur
 function decayClickMeter() {
   if (clickMeterValue > 0) {
-    clickMeterValue -= DECAY_RATE / 10; // Divisé par 10 car généralement appelé toutes les 100ms
+    clickMeterValue -= DECAY_RATE / 10;
     updateClickMeter();
   }
 }
 
-// Initialiser quand le DOM est chargé
-document.addEventListener('DOMContentLoaded', initClickMeter);
+function achieveGoal() {
+  clickMeterValue = 0;
+  addMoney(1000);
+  createCelebration();
+}
 
-// Exporter les fonctions nécessaires
-export { incrementClickMeter, clickMultiplier };
+function createCelebration() {
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(confetti);
+      
+      setTimeout(() => {
+        document.body.removeChild(confetti);
+      }, 5000);
+    }, Math.random() * 1000);
+  }
+}
+
+
+function initClickMeter() {
+  // Création de la jauge si elle n'existe pas
+  if (!document.querySelector('.click-meter-container')) {
+    const container = document.createElement('div');
+    container.className = 'click-meter-container';
+    container.innerHTML = `
+      <div class="click-meter-wrapper">
+        <div class="click-meter-fill"></div>
+        <div class="click-meter-glow"></div>
+      </div>
+    `;
+    document.body.appendChild(container);
+  }
+  setInterval(decayClickMeter, 100);
+}
+
+export { incrementClickMeter, initClickMeter, MAX_METER };
+

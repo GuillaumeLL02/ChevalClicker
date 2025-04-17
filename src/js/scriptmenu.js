@@ -4,8 +4,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 function main() {
-    // Vérifier si l'utilisateur était dans le jeu avant le rafraîchissement
-    const wasInGame = localStorage.getItem('inGame') === 'true';
+
+    // Utilisation de sessionStorage pour verifier l'état du jeu
+    const wasInGame = sessionStorage.getItem('inGame') === 'true';
 
     // Initialisation des éléments UI
     const menuContainer = document.getElementById('menu-container');
@@ -14,29 +15,20 @@ function main() {
     const startBtn = document.getElementById('start-game-btn');
     const titleContainer = document.querySelector('.title-container');
 
-    // Dans la partie qui configure l'UI en fonction de l'état précédent
+    // Configuration de l'UI en fonction de l'état précédent
     if (wasInGame) {
         menuContainer.style.display = 'none';
         gameUI.style.display = 'block';
         progressContainer.style.display = 'none';
         startBtn.style.display = 'none';
-        titleContainer.style.display = 'none'; // Masquer le titre si on était en jeu
+        titleContainer.style.display = 'none'; 
     } else {
         menuContainer.style.display = 'block';
         gameUI.style.display = 'none';
         progressContainer.style.display = 'flex';
-        startBtn.style.display = 'none';
-        titleContainer.style.display = 'block'; // Afficher le titre au menu principal
-    }
-
-    // Bouton retour au menu
-    document.getElementById('back-to-menu-btn').addEventListener('click', () => {
-        gameUI.style.display = 'none';
-        menuContainer.style.display = 'block';
         startBtn.style.display = 'block';
-        document.querySelector('.title-container').style.display = 'block';
-        localStorage.setItem('inGame', 'false');
-    });
+        titleContainer.style.display = 'block'; 
+    }
 
     // Initialisation Three.js
     const scene = new THREE.Scene();
@@ -75,7 +67,7 @@ function main() {
         loadingBar.style.backgroundPosition = '0% 0';
         progressContainer.style.display = 'none';
         if (!wasInGame) {
-            startBtn.style.display = 'block'; // Afficher le bouton Start après le chargement
+            startBtn.style.display = 'block';
         }
     };
 
@@ -83,7 +75,7 @@ function main() {
         console.error(`Erreur lors du chargement de : ${url}`);
     };
 
-    // Ajout d'un background avec une texture
+    // Background avec texture
     const textureLoader = new THREE.TextureLoader(loadingManager);
     textureLoader.load(
         '/src/images/sky_image.jpg',
@@ -159,24 +151,28 @@ function main() {
     }
     animate();
 
-    // Transition vers game-ui
+    // Bouton retour au menu
+    document.getElementById('back-to-menu-btn').addEventListener('click', () => {
+        gameUI.style.display = 'none';
+        menuContainer.style.display = 'block';
+        startBtn.style.display = 'block';
+        document.querySelector('.title-container').style.display = 'block';
+        sessionStorage.setItem('inGame', 'false');
+    });
+
+    // Bouton Commencer le jeu
     startBtn.addEventListener('click', () => {
         menuContainer.style.display = 'none';
         gameUI.style.display = 'block';
         startBtn.style.display = 'none';
         progressContainer.style.display = 'none';
         document.querySelector('.title-container').style.display = 'none';
-        localStorage.setItem('inGame', 'true');
-        // Forcer un redimensionnement après un court délai
-    setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-    }, 100);
+        sessionStorage.setItem('inGame', 'true');
+        
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 100);
     });
-
-    window.addEventListener('beforeunload', (event) => {
-        if (!document.visibilityState || document.visibilityState === 'hidden') {
-            localStorage.removeItem('inGame'); // On vide seulement si l'utilisateur quitte vraiment
-        }
-    });    
 }
+
 main();

@@ -1,7 +1,6 @@
-// src/js/money.js
+import { loadGame,saveGame } from './save-manager.js';
 
-// Variables pour le système d'argent
-let money = 0;
+let money = (loadGame()?.money) || 0;
 let moneyDisplay;
 
 // Fonction pour initialiser le système d'argent
@@ -16,32 +15,16 @@ function initMoney() {
   updateMoneyDisplay();
 }
 
-// Fonction pour mettre à jour l'affichage de l'argent
 function updateMoneyDisplay() {
-  if (!moneyDisplay) {
-    moneyDisplay = document.getElementById('money-value');
-  }
-  
-  if (moneyDisplay) {
-    moneyDisplay.textContent = money;
-  }
+  moneyDisplay.textContent = money;
+  saveGame(); // Sauvegarde à chaque changement
 }
 
 // Fonction pour ajouter de l'argent avec une animation
 function addMoney(amount) {
   money += amount;
   updateMoneyDisplay();
-  
-  // Ajouter une animation de pulse
-  const moneyContainer = document.querySelector('.money-container');
-  if (moneyContainer) {
-    moneyContainer.classList.add('money-pulse');
-    
-    // Retirer la classe d'animation après la fin
-    setTimeout(() => {
-      moneyContainer.classList.remove('money-pulse');
-    }, 300);
-  }
+ 
 }
 
 // Fonction pour dépenser de l'argent
@@ -51,6 +34,14 @@ function spendMoney(amount) {
     updateMoneyDisplay();
     return true;
   }
+
+  moneyDisplay.classList.add('not-enough-money'); 
+
+   // Retirer la classe après 1 seconde
+   setTimeout(() => {
+    moneyDisplay.classList.remove('not-enough-money');
+  }, 1000);
+  
   return false;
 }
 

@@ -1,80 +1,72 @@
-// src/js/script_gameplay.js
+// Correction pour script_gameplay.js
+// Ajout de l'appel à incrementClickMeter lors du clic
+
 import { addMoney } from './money.js';
-import { incrementClickMeter } from './jauge.js';
+import { incrementClickMeter, initClickMeter, MAX_METER } from './jauge.js';
+import {  getCurrentStaminaMultiplier } from './stamina-bar.js';
+import { loadGame } from './save-manager.js';
 
-// Attend que le DOM soit chargé avant d'initialiser
-document.addEventListener('DOMContentLoaded', initGameplay);
 
-function initGameplay() {
-  // Récupérer l'élément sur lequel le joueur clique (le modèle 3D du cheval)
-  const clickableElement = document.getElementById('Model3D');
+document.addEventListener('DOMContentLoaded', () => {
+  // Charger l'état sauvegardé
+  const saved = loadGame();
+  if (saved) {
+      window.money = saved.money;
+      window.staminaValue = saved.stamina;
+      window.foodUpgrades = saved.upgrades;
+      window.clickMeterValue = saved.clickMeter;
+  }
+  // Initialiser la jauge de clic
+  initClickMeter();
   
+  const clickableElement = document.getElementById('Model3D');
   if (!clickableElement) {
-    console.error("Élément cliquable introuvable");
+    console.error('Could not find clickable element with ID "Model3D"');
     return;
   }
 
-  // Valeur de base pour chaque clic
+  // Valeur de base par clic
   const BASE_CLICK_VALUE = 1;
 
-  // Ajouter l'écouteur d'événement au clic
-  clickableElement.addEventListener('click', handlePlayerClick);
-
-  // Fonction qui gère le clic du joueur
-  function handlePlayerClick(event) {
-    // Incrémenter la jauge et obtenir le multiplicateur actuel
-    const currentMultiplier = incrementClickMeter();
-    
-    // Calculer la valeur d'argent à ajouter en fonction du multiplicateur
-    const moneyToAdd = BASE_CLICK_VALUE * currentMultiplier;
-    
-    // Ajouter l'argent au compteur du joueur
-    addMoney(moneyToAdd);
-    
-    // Créer un effet visuel de texte flottant
-    createFloatingText(event.clientX, event.clientY, '+' + moneyToAdd);
-  }
-
-  // Fonction pour créer un texte flottant qui disparaît
-  function createFloatingText(x, y, text) {
-    const floatingText = document.createElement('div');
-    floatingText.className = 'floating-text';
-    floatingText.textContent = text;
-    floatingText.style.left = x + 'px';
-    floatingText.style.top = y + 'px';
-    
-    document.body.appendChild(floatingText);
-    
-    // Animer puis supprimer
-    setTimeout(() => {
-      document.body.removeChild(floatingText);
-    }, 1000);
-  }
-
-  // Ajouter CSS pour le texte flottant s'il n'existe pas déjà
-  if (!document.getElementById('floating-text-style')) {
-    const style = document.createElement('style');
-    style.id = 'floating-text-style';
-    style.textContent = `
-      .floating-text {
-        position: absolute;
-        font-family: 'Georgia', serif;
-        font-size: 18px;
-        font-weight: bold;
-        color: #ffd700;
-        text-shadow: 2px 2px 2px #000;
-        pointer-events: none;
-        z-index: 1000;
-        animation: float-up 1s ease-out forwards;
-      }
+  clickableElement.addEventListener('click', (event) => {
+      // Récupérer le multiplicateur de stamina
+      const staminaMultiplier = getCurrentStaminaMultiplier();
       
-      @keyframes float-up {
-        0% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-50px); }
-      }
-    `;
-    document.head.appendChild(style);
+      // Calculer la valeur gagnée en combinant les deux multiplicateurs
+      const earnedValue = BASE_CLICK_VALUE * staminaMultiplier;
+      
+      // Ajouter l'argent basé sur la valeur calculée
+      addMoney(earnedValue);
+      
+      // Incrémenter la jauge de clic (manquant dans le code original)
+      incrementClickMeter();
+  });
+  
+  
+  // Ajouter un indicateur de progression
+  createProgressIndicator();
+});
+
+// Fonction pour créer/mettre à jour l'indicateur de progression
+function createProgressIndicator() {
+  const progressIndicator = document.querySelector('.click-meter-label');
+  
+  if (!progressIndicator) {
+    console.error("Element .click-meter-label non trouvé");
+    return;
   }
+
+  // Initialisation
+  progressIndicator.textContent = `Objectif: 0/${MAX_METER}`;
+  
+  // Mettre à jour l'indicateur périodiquement
+  setInterval(() => {
+    const clickMeterFill = document.querySelector('.click-meter-fill');
+    if (clickMeterFill) {
+      const currentHeight = parseFloat(clickMeterFill.style.height || '0');
+      const currentValue = Math.round((currentHeight / 100) * MAX_METER);
+      progressIndicator.textContent = `Objectif: ${currentValue}/${MAX_METER}`;
+    }
+  }, 100);
 }
 
-// Ne pas exporter de fonctions car ce script agit comme point d'entrée
