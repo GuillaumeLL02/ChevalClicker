@@ -6,7 +6,6 @@
     height: 100px;
     display: flex;
     gap: 10px;
-    margin: 0 auto;
   }
   
   /* Panneau du cheval */
@@ -19,12 +18,15 @@
     top: 70px;
   }
   
-  /* Style amélioré pour le panneau de gauche contenant les nourritures */
   .UpgradePanelLeft {
     position: absolute;
-    left: 0;
-    height: 95%;
+    left: 20px; /* petit décalage à gauche */
+    top: 50%; /* centre verticalement */
+    transform: translateY(-50%); /* aligne le milieu */
+  
+    max-height: 90vh;
     width: 340px;
+  
     background: linear-gradient(135deg, #6b4226 0%, #8B4513 50%, #6b4226 100%);
     border: none;
     border-radius: 15px;
@@ -33,8 +35,8 @@
     margin: 10px;
     padding: 15px 10px;
     overflow: hidden;
-    /* Pour éliminer le défilement */
   }
+  
   
   /* Titre du panneau */
   .UpgradePanelLeft h2 {
@@ -45,8 +47,8 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     padding-bottom: 10px;
     border-bottom: 2px solid #f39c12;
-    position: relative;
   }
+  
   
   .UpgradePanelLeft h2:after {
     content: '';

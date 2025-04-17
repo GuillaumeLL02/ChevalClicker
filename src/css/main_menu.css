@@ -9,10 +9,58 @@
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
-  background-color: #f0f0f0;
-  overflow: hidden;
+  background-image: url("/src/images/Background/2.jpg");
+  background-size: contain;
+  overflow: hidden; /* Empêche le défilement */ 
+
 }
 
+/* Modification du CSS du titre pour éviter les problèmes de mise en page */
+.title-container {
+  position: absolute;
+  top: 10%; /* Positionné un peu plus haut pour laisser de l'espace */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 100; /* S'assurer qu'il est au-dessus des autres éléments */
+  pointer-events: none; /* Permet aux clics de passer à travers le titre */
+}
+
+.title-container h1 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 6rem; /* Légèrement plus petit */
+  color: #fff;
+  text-shadow: 
+  0 0 10px #8B4513,
+  0 0 20px #A0522D,
+  0 0 30px #D2691E,
+  3px 3px 0 #000;
+  margin: 0;
+  letter-spacing: 0.5rem;
+
+}
+/* Style pour l'image remplaçant le O dans HORSE */
+.title-image {
+  height: 4.5rem; /* Ajustez selon la taille de votre H1 */
+  vertical-align: middle; /* Alignement vertical avec le texte */
+  margin: 0 -5px; /* Légère correction de l'espacement */
+  display: inline-block;
+  transform: translateY(-5px); /* Ajustement fin de la position verticale */
+}
+
+.title-container h2 {
+  font-family: "Arial Black", sans-serif;
+  font-size: 4.5rem; /* Légèrement plus petit */
+  color: #fff;
+  text-shadow: 
+      0 0 10px #8B4513,
+      0 0 20px #A0522D,
+      0 0 30px #D2691E,
+      3px 3px 0 #000;
+  margin: 0;
+  letter-spacing: 0.3rem;
+  margin-top: -1rem; /* Rapprocher les deux lignes */
+}
 /* Styles pour les pages */
 .page {
   width: 100%;
@@ -22,7 +70,6 @@ body {
   left: 0;
 }
 
-/* Page 1 : Menu principal */
 #main-menu {
   display: flex;
   flex-direction: column;
@@ -55,6 +102,20 @@ body {
   border-radius: 10px;
 }
 
+/* Contenu principal du jeu */
+.game-content {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 60px;
+  left: 0;
+}
+
+
+/* Styles pour le bouton de démarrage du jeu */
 #start-game-btn {
   padding: 15px 30px;
   font-size: 1.5rem;
@@ -67,7 +128,14 @@ body {
   transition: all 0.3s ease;
   z-index: 10;
   display: none; /* Caché au départ */
+  
+  /* Positionnement du bouton plus bas */
+  position: absolute;
+  bottom: 35%; /* Position à 25% du bas de l'écran */
+  left: 50%;
+  transform: translateX(-50%); /* Centre horizontalement */
 }
+
 /* Nouvelle classe pour l'état visible */
 #start-game-btn.visible {
   display: block;
@@ -76,7 +144,7 @@ body {
 #start-game-btn:hover {
   background-color: rgba(255, 255, 255, 0.9);
   color: #000;
-  transform: scale(1.1);
+  transform: translateX(-50%) scale(1.1); /* Maintient le centrage lors du hover */
 }
 
 /* From Uiverse.io by Yogeshawghad0477, modifié */
@@ -113,3 +181,207 @@ body {
     width: 80%;
   }
 }
+
+/* Style pour la navbar en bas à droite */
+.navbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour le bouton home */
+#back-to-menu-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: transform 0.3s;
+}
+
+#back-to-menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Ajustement du style fullscreen pour correspondre */
+.container.fullscreen-btn {
+  margin-left: 0;
+}
+
+/* Animation en hover sur la navbar */
+.navbar-content:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Suppression des styles précédents qui ne sont plus nécessaires */
+.btn-back {
+  display: none;
+}
+
+/* Animation douce d'apparition */
+.navbar {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styles pour le bouton  musique */
+
+.music-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.toggleSwitch {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(39, 39, 39);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: .3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#music-toggle {
+  display: none;
+}
+
+.speaker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition-duration: .3s;
+}
+
+.speaker svg {
+  width: 18px;
+}
+
+.mute-speaker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 3;
+  transition-duration: .3s;
+}
+
+.mute-speaker svg {
+  width: 18px;
+}
+
+#music-toggle:checked + .toggleSwitch .speaker {
+  opacity: 0;
+  transition-duration: .3s;
+}
+
+#music-toggle:checked + .toggleSwitch .mute-speaker {
+  opacity: 1;
+  transition-duration: .3s;
+}
+
+#music-toggle:active + .toggleSwitch {
+  transform: scale(0.85);
+}
+
+#music-toggle + .toggleSwitch:hover {
+  background-color: rgb(61, 61, 61);
+}
+
+/* Animation lors du changement d'état */
+.toggleSwitch::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.toggleSwitch:active::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Fullscreen button styles */
+.container.fullscreen-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.container.fullscreen-btn input {
+  display: none; /* Hide the checkbox */
+}
+
+/* Default state - show expand icon */
+.container.fullscreen-btn .expand {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.container.fullscreen-btn .compress {
+  display: none;
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* When checkbox is checked (fullscreen mode) - show compress icon */
+.container.fullscreen-btn input:checked ~ .expand {
+  display: none;
+}
+
+.container.fullscreen-btn input:checked ~ .compress {
+  display: block;
+}
+
+/* Hover effect */
+.container.fullscreen-btn:hover svg {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+

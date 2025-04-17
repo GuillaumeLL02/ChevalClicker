@@ -12,18 +12,21 @@ function main() {
     const gameUI = document.getElementById('game-ui');
     const progressContainer = document.querySelector('.progress-bar-container');
     const startBtn = document.getElementById('start-game-btn');
+    const titleContainer = document.querySelector('.title-container');
 
-    // Configurer l'UI en fonction de l'état précédent
+    // Dans la partie qui configure l'UI en fonction de l'état précédent
     if (wasInGame) {
         menuContainer.style.display = 'none';
         gameUI.style.display = 'block';
         progressContainer.style.display = 'none';
         startBtn.style.display = 'none';
+        titleContainer.style.display = 'none'; // Masquer le titre si on était en jeu
     } else {
         menuContainer.style.display = 'block';
         gameUI.style.display = 'none';
-        progressContainer.style.display = 'flex'; // Afficher la barre de progression au départ
-        startBtn.style.display = 'none'; // Caché jusqu'à la fin du chargement
+        progressContainer.style.display = 'flex';
+        startBtn.style.display = 'none';
+        titleContainer.style.display = 'block'; // Afficher le titre au menu principal
     }
 
     // Bouton retour au menu
@@ -31,6 +34,7 @@ function main() {
         gameUI.style.display = 'none';
         menuContainer.style.display = 'block';
         startBtn.style.display = 'block';
+        document.querySelector('.title-container').style.display = 'block';
         localStorage.setItem('inGame', 'false');
     });
 
@@ -162,6 +166,7 @@ function main() {
         gameUI.style.display = 'block';
         startBtn.style.display = 'none';
         progressContainer.style.display = 'none';
+        document.querySelector('.title-container').style.display = 'none';
         localStorage.setItem('inGame', 'true');
     });
 

@@ -1,111 +1,80 @@
-//define the buttons of velocities and excitement
-const button_add_click = document.querySelector('input[type="button"][id=add_click]');
+// src/js/script_gameplay.js
+import { addMoney } from './money.js';
+import { incrementClickMeter } from './jauge.js';
 
-const speedElement = document.querySelector('div[id=speed]');
-const energyElement = document.querySelector('div[id=energy]');
+// Attend que le DOM soit chargé avant d'initialiser
+document.addEventListener('DOMContentLoaded', initGameplay);
 
-let nb_click = 0;
-let velocity = 0;
-let speed = 1;
-let energy = 100;
-let emplacement = 0;
-let ending = false;
+function initGameplay() {
+  // Récupérer l'élément sur lequel le joueur clique (le modèle 3D du cheval)
+  const clickableElement = document.getElementById('Model3D');
+  
+  if (!clickableElement) {
+    console.error("Élément cliquable introuvable");
+    return;
+  }
 
-let coins = localStorage.getItem("coins");
+  // Valeur de base pour chaque clic
+  const BASE_CLICK_VALUE = 1;
 
-if (coins == null) {
-  localStorage.setItem("coins", "0");
-  coins = localStorage.getItem("coins");
+  // Ajouter l'écouteur d'événement au clic
+  clickableElement.addEventListener('click', handlePlayerClick);
+
+  // Fonction qui gère le clic du joueur
+  function handlePlayerClick(event) {
+    // Incrémenter la jauge et obtenir le multiplicateur actuel
+    const currentMultiplier = incrementClickMeter();
+    
+    // Calculer la valeur d'argent à ajouter en fonction du multiplicateur
+    const moneyToAdd = BASE_CLICK_VALUE * currentMultiplier;
+    
+    // Ajouter l'argent au compteur du joueur
+    addMoney(moneyToAdd);
+    
+    // Créer un effet visuel de texte flottant
+    createFloatingText(event.clientX, event.clientY, '+' + moneyToAdd);
+  }
+
+  // Fonction pour créer un texte flottant qui disparaît
+  function createFloatingText(x, y, text) {
+    const floatingText = document.createElement('div');
+    floatingText.className = 'floating-text';
+    floatingText.textContent = text;
+    floatingText.style.left = x + 'px';
+    floatingText.style.top = y + 'px';
+    
+    document.body.appendChild(floatingText);
+    
+    // Animer puis supprimer
+    setTimeout(() => {
+      document.body.removeChild(floatingText);
+    }, 1000);
+  }
+
+  // Ajouter CSS pour le texte flottant s'il n'existe pas déjà
+  if (!document.getElementById('floating-text-style')) {
+    const style = document.createElement('style');
+    style.id = 'floating-text-style';
+    style.textContent = `
+      .floating-text {
+        position: absolute;
+        font-family: 'Georgia', serif;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 2px 2px 2px #000;
+        pointer-events: none;
+        z-index: 1000;
+        animation: float-up 1s ease-out forwards;
+      }
+      
+      @keyframes float-up {
+        0% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-50px); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
-
-
-//show all the buttons
-button_add_click.disabled = false;
-
-//Upgrades :
-const button_upgrade_1 = document.querySelector('input[type="button"][id=upgrade_1]');
-const button_upgrade_2 = document.querySelector('input[type="button"][id=upgrade_2]');
-const button_upgrade_3 = document.querySelector('input[type="button"][id=upgrade_3]');
-const button_upgrade_4 = document.querySelector('input[type="button"][id=upgrade_4]');
-const button_upgrade_5 = document.querySelector('input[type="button"][id=upgrade_5]');
-
-
-//button upgrade 1 : 10 energy
-button_upgrade_1.addEventListener("click", () => {
-  energy = energy + 10;
-  button_upgrade_1.disabled = true;
-});
-
-//button upgrade 2 : 5 speed
-button_upgrade_2.addEventListener("click", () => {
-  speed = speed + 5;
-  button_upgrade_2.disabled = true;
-});
-
-//button upgrade 3 : pause energy
-button_upgrade_3.addEventListener("click", () => {
-  energy = energy;
-  button_upgrade_3.disabled = true;
-});
-
-//button upgrade 4 : 10 energy
-button_upgrade_4.addEventListener("click", () => {
-  energy = energy + 10;
-  button_upgrade_4.disabled = true;
-});
-
-//button upgrade 5 : 10 energy
-button_upgrade_5.addEventListener("click", () => {
-  energy = energy + 10;
-  button_upgrade_5.disabled = true;
-});
-
-const change_of_var = () => {
-  energy = energy - 1;
-  if (energy < 0 && ending == false) {
-    energy = 0;
-    speed = 0;
-    ending = true;
-    console.log("Number of coins : " + coins);
-    coins = Math.floor(Number(coins) + Number(emplacement * 20));
-    localStorage.setItem("coins", coins);
-  }
-  else if (energy < 0 && ending == true) {
-    energy = 0;
-    speed = 0;
-  }
-  else {
-    speed = velocity * 0.9;
-  }
-  emplacement = emplacement + speed;
-  document.getElementById("speed").textContent = speed.toFixed(2) + ' m/s';
-  document.getElementById("energy").textContent = energy.toFixed(2);
-  document.getElementById("prog_speed").value = speed.toFixed(2);
-  document.getElementById("prog_energy").value = energy.toFixed(2);
-  document.getElementById("prog_empl").value = emplacement.toFixed(2);
-  document.getElementById("coins_numbers").textContent = coins;
-};
-
-setInterval(change_of_var, 1000);
-
-const change_velocity = () => {
-  if (velocity > 0) {
-    velocity = velocity - 1;
-  }
-  document.getElementById("prog_velo").value = velocity.toFixed(2);
-  document.getElementById("velocity").textContent = velocity.toFixed(2);
-}
-
-setInterval(change_velocity, 500);
-
-//when the button is clicked, the velocity is changed (ADD)
-button_add_click.addEventListener("click", () => {
-  console.log("ADD");
-  velocity++;
-  document.getElementById("nb_of_click").textContent = nb_click;
-  velocity = 10;
-  if (energy == 0) {
-    button_add_click.disabled = true;
-  }
-});
+// Ne pas exporter de fonctions car ce script agit comme point d'entrée
