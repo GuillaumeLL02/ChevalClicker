@@ -12,14 +12,19 @@
   z-index: 10;
 }
 
+
 .stamina-bar-label {
-  font-family: 'Georgia', serif;
-  font-weight: bold;
-  color: #4db6ac;
-  text-shadow: 2px 2px 2px #000;
-  font-size: 16px;
+  font-family: 'Trebuchet MS', 'Arial', sans-serif;
+  font-weight: 700;
+  color:#ffe6cc;
+  font-size: 18px;
   text-align: center;
-  transform: rotate(0deg);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 12px;
+  background: linear-gradient(135deg, #6b4226 0%, #8B4513 50%, #6b4226 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .stamina-bar-wrapper {
@@ -74,20 +79,21 @@
   bottom: 0;
   background: 
     linear-gradient(to right, 
-      transparent calc(35% - 2px),
-      rgba(255, 0, 0, 0.7) calc(35% - 2px),
-      rgba(255, 0, 0, 0.7) calc(35% + 2px),
-      transparent calc(35% + 2px)
+      transparent calc(30% - 2px),
+      rgba(238, 255, 0, 0.953) calc(30% - 2px),
+      rgb(238, 255, 0) calc(30% + 2px),
+      transparent calc(30% + 2px)
     ),
     linear-gradient(to right, 
       transparent calc(70% - 2px),
-      rgba(0, 119, 255, 0.7) calc(70% - 2px),
-      rgba(0, 85, 255, 0.7) calc(70% + 2px),
+      rgb(0, 255, 42) calc(70% - 2px),
+      rgba(0, 255, 42) calc(70% + 2px),
       transparent calc(70% + 2px)
     );
   z-index: 3;
   pointer-events: none;
 }
+
 
 .stamina-bar-glow {
   position: absolute;
@@ -108,9 +114,7 @@
   font-weight: bold;
   font-size: 20px;
   color: #070707; /* Couleur de base (x1) */
-  text-shadow:
-    2px 2px 2px #000,
-    0 0 6px rgba(0, 150, 136, 0.6);
+
   border: 3px solid #5a2e0d;
   border-radius: 50%;
   width: 40px;

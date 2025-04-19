@@ -18,17 +18,18 @@ body {
 /* Modification du CSS du titre pour éviter les problèmes de mise en page */
 .title-container {
   position: absolute;
-  top: 10%; /* Positionné un peu plus haut pour laisser de l'espace */
-  left: 0;
+  top: 10%; 
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   text-align: center;
-  z-index: 100; /* S'assurer qu'il est au-dessus des autres éléments */
+  z-index: 10;
   pointer-events: none; /* Permet aux clics de passer à travers le titre */
 }
 
 .title-container h1 {
   font-family: "Arial Black", sans-serif;
-  font-size: 6rem; /* Légèrement plus petit */
+  font-size: 8rem; /* Légèrement plus petit */
   color: #fff;
   text-shadow: 
   0 0 10px #8B4513,
@@ -41,7 +42,7 @@ body {
 }
 /* Style pour l'image remplaçant le O dans HORSE */
 .title-image {
-  height: 4.5rem; /* Ajustez selon la taille de votre H1 */
+  height: 6.5rem; /* Ajustez selon la taille de votre H1 */
   vertical-align: middle; /* Alignement vertical avec le texte */
   margin: 0 -5px; /* Légère correction de l'espacement */
   display: inline-block;
@@ -50,7 +51,7 @@ body {
 
 .title-container h2 {
   font-family: "Arial Black", sans-serif;
-  font-size: 4.5rem; /* Légèrement plus petit */
+  font-size: 6.5rem; /* Légèrement plus petit */
   color: #fff;
   text-shadow: 
       0 0 10px #8B4513,
@@ -383,5 +384,14 @@ body {
 .container.fullscreen-btn:hover svg {
   transform: scale(1.1);
   transition: transform 0.2s ease;
+}
+
+/* Barre de volume */
+#volume-slider {
+  width: 100px;
+  margin-left: 10px;
+  accent-color: white;
+  background: transparent;
+  cursor: pointer;
 }
 

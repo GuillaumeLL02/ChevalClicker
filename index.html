@@ -73,6 +73,8 @@
                             </svg>
                         </div>
                     </label>
+                    <!-- Barre de volume -->
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" />
                 </div>
             </div>
         </div>
@@ -147,7 +149,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Ajoutez ce code à l'intérieur de votre #game-ui -->
                 <div class="stamina-bar-container">
                     <div class="stamina-bar-label">STAMINA</div>
                     <div class="stamina-bar-wrapper">
@@ -157,16 +158,17 @@
                     <div class="stamina-value">100</div>
                 </div>
                 <div class="click-meter-container">
-                    <div class="click-meter-label">Objectif: 0/1000</div> <!-- Texte par défaut -->
+                    <div class="click-meter-label">Objectif: 0/1000</div>
                     <div class="click-meter-wrapper">
                         <div class="click-meter-fill"></div>
                         <div class="click-meter-glow"></div>
                     </div>
                 </div>
 
-                <div class="Modelpart">
+                <div class="Modelpart"> 
                     <div id="Model3D"></div> <!-- Conteneur pour le cheval -->
                 </div>
+
             </div>
         </div>
         <footer></footer>

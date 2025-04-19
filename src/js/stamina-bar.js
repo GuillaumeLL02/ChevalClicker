@@ -1,14 +1,11 @@
-import { saveGame, loadGame } from './save-manager.js';
-
-let staminaValue = (loadGame()?.stamina) || 20;
-const MAX_STAMINA = 200; // Valeur maximale de stamina
-const STAMINA_DECAY_RATE = 3; // 3 points perdus toutes les 8 secondes
+let staminaValue =  10;
+const MAX_STAMINA = 200;  
 
 // Simplification des multiplicateurs à 3 niveaux clairement distincts
 const STAMINA_MULTIPLIER_LEVELS = [
-  { threshold: 140, value: 3, color: '#4CAF50' }, // Stamina haute (66-100) = x3
-  { threshold: 60, value: 2, color: '#FF9800' }, // Stamina moyenne (33-66) = x2
-  { threshold: 0, value: 1, color: '#F44336' }   // Stamina faible (0-33) = x1
+  { threshold: 140, value: 3, color: '#4CAF50' }, // Stamina haute (140-200) = x3
+  { threshold: 60, value: 2, color: '#FF9800' }, // Stamina moyenne (60-140) = x2
+  { threshold: 0, value: 1, color: '#F44336' }   // Stamina faible (0-60) = x1
 ];
 
 let staminaDecayInterval = null;
@@ -62,11 +59,10 @@ function updateStaminaBar() {
   staminaValueDisplay.className = 'stamina-value';
   staminaValueDisplay.classList.add(`stamina-level-${currentLevel.value}`);
 
-  saveGame(); // Sauvegarder la valeur de stamina à chaque mise à jour
 }
 
 
-// Fonction pour ajouter de la stamina (utilisée par la nourriture)
+// Fonction pour ajouter de la stamina 
 function addStamina(amount) {
   staminaValue += amount;
   if (staminaValue > MAX_STAMINA) staminaValue = MAX_STAMINA;
@@ -81,10 +77,16 @@ function startStaminaDecay() {
   staminaDecayInterval = setInterval(() => {
     // Diminuer progressivement la stamina
     if (staminaValue > 0) {
-      staminaValue -= STAMINA_DECAY_RATE;
+      staminaValue -= 3;
       updateStaminaBar();
     }
-  }, 8000); // Diminution toutes les 8 secondes
+    if (staminaValue > 160) {
+      staminaValue -= 5;
+      updateStaminaBar()
+    }
+  }, 7000); // Diminution toutes les 5 secondes
+
+  
 }
 
 // Fonction pour récupérer le multiplicateur actuel basé sur la stamina
@@ -97,29 +99,8 @@ function getCurrentStaminaMultiplier() {
 document.addEventListener('DOMContentLoaded', () => {
   initStaminaBar();
   
-  // Ajouter des styles CSS pour les différents niveaux de multiplicateur
-  addStaminaLevelStyles();
 });
 
-// Fonction pour ajouter des styles spécifiques aux niveaux de stamina
-function addStaminaLevelStyles() {
-  const style = document.createElement('style');
-  style.textContent = `
-    .stamina-level-1 {
-      color:rgb(54, 244, 73) !important;
-      text-shadow: 0 0 5px #F44336 !important;
-    }
-    .stamina-level-2 {
-      color: #FF9800 !important;
-      text-shadow: 0 0 5px #FF9800 !important;
-    }
-    .stamina-level-3 {
-      color: #4CAF50 !important;
-      text-shadow: 0 0 8px #4CAF50 !important;
-    }
-  `;
-  document.head.appendChild(style);
-}
 
 // Exporter les fonctions nécessaires
 export { 

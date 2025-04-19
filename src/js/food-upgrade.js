@@ -1,9 +1,8 @@
 import { spendMoney } from './money.js';
 import { addStamina } from './stamina-bar.js'; 
-import { saveGame, loadGame } from './save-manager.js'; 
 
-// Structure des upgrades avec ajout de l'effet stamina
-const foodUpgrades = (loadGame()?.upgrades) || [
+// Structure des upgrades 
+const foodUpgrades =  [
     {
         id: 'FirstFood',
         name: 'Carottes',
@@ -18,7 +17,7 @@ const foodUpgrades = (loadGame()?.upgrades) || [
         basePrice: 25,
         level: 0,
         buttonId: 'SecondFoodButton',
-        staminaBonus: 8  // Plus cher mais donne plus de stamina
+        staminaBonus: 8  
     },
     {
         id: 'ThirdFood',
@@ -26,7 +25,7 @@ const foodUpgrades = (loadGame()?.upgrades) || [
         basePrice: 50,
         level: 0,
         buttonId: 'ThirdFoodButton',
-        staminaBonus: 22  // Encore plus efficace
+        staminaBonus: 22 
     },
     {
         id: 'FourthFood',
@@ -34,7 +33,7 @@ const foodUpgrades = (loadGame()?.upgrades) || [
         basePrice: 100,
         level: 0,
         buttonId: 'FourthFoodButton',
-        staminaBonus: 42  // Très efficace
+        staminaBonus: 42  
     },
     {
         id: 'FifthFood',
@@ -42,7 +41,7 @@ const foodUpgrades = (loadGame()?.upgrades) || [
         basePrice: 300,
         level: 0,
         buttonId: 'FifthFoodButton',
-        staminaBonus: 50  // Bonus important de stamina
+        staminaBonus: 50  
     }
 ];
 
@@ -74,15 +73,14 @@ function purchaseUpgrade(upgradeId) {
         // Mise à jour du niveau
         upgrade.level++;
         
-        // Ajout de stamina (l'effet de la nourriture)
-        const staminaGain = upgrade.staminaBonus + ( upgrade.level * 2 ); // Bonus croissant avec le niveau
+        // Ajout de stamina de la nourriture
+        const staminaGain = upgrade.staminaBonus + ( upgrade.level * 2 ); 
         addStamina(staminaGain);
 
         // Mettre à jour l'affichage
         updateUpgradeDisplay(upgrade);
     }
 
-    saveGame(); // Sauvegarder l'état du jeu après achat
 }
 
 // Fonction pour mettre à jour l'affichage d'un upgrade

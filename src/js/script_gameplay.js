@@ -1,21 +1,8 @@
-// Correction pour script_gameplay.js
-// Ajout de l'appel à incrementClickMeter lors du clic
-
 import { addMoney } from './money.js';
 import { incrementClickMeter, initClickMeter, MAX_METER } from './jauge.js';
-import {  getCurrentStaminaMultiplier } from './stamina-bar.js';
-import { loadGame } from './save-manager.js';
-
+import {  staminaValue,getCurrentStaminaMultiplier } from './stamina-bar.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Charger l'état sauvegardé
-  const saved = loadGame();
-  if (saved) {
-      window.money = saved.money;
-      window.staminaValue = saved.stamina;
-      window.foodUpgrades = saved.upgrades;
-      window.clickMeterValue = saved.clickMeter;
-  }
   // Initialiser la jauge de clic
   initClickMeter();
   
@@ -38,14 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ajouter l'argent basé sur la valeur calculée
       addMoney(earnedValue);
       
-      // Incrémenter la jauge de clic (manquant dans le code original)
+      // Incrémenter la jauge de clic 
       incrementClickMeter();
+
+      // Joue l'animation visuelle
+      playClickAnimation(clickableElement);
   });
   
   
   // Ajouter un indicateur de progression
   createProgressIndicator();
 });
+
+function playClickAnimation(element) {
+  element.style.transition = 'transform 0.1s ease';
+  element.style.transform = 'scale(1.1) rotate(2deg)';
+  
+  setTimeout(() => {
+    element.style.transform = 'scale(1) rotate(0deg)';
+  }, 100);
+}
+
 
 // Fonction pour créer/mettre à jour l'indicateur de progression
 function createProgressIndicator() {

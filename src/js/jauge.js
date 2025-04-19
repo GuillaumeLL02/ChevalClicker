@@ -1,12 +1,16 @@
 import { getCurrentStaminaMultiplier } from './stamina-bar.js';
 import { addMoney } from './money.js';
-import { saveGame, loadGame } from './save-manager.js';
 
 
-let clickMeterValue = (loadGame()?.clickMeter) || 0;
+let clickMeterValue = 0;
 const MAX_METER = 1000;
 const DECAY_RATE = 2;
 const CLICK_VALUE = 1;
+
+
+function initClickMeter() {
+  setInterval(decayClickMeter, 100);
+}
 
 function updateClickMeter() {
   clickMeterValue = Math.max(0, Math.min(MAX_METER, clickMeterValue));
@@ -21,8 +25,6 @@ function updateClickMeter() {
   if (clickMeterValue >= MAX_METER) {
     achieveGoal();
   }
-
-  saveGame(); // Sauvegarde à chaque changement
 }
 
 function incrementClickMeter() {
@@ -59,23 +61,6 @@ function createCelebration() {
       }, 5000);
     }, Math.random() * 1000);
   }
-}
-
-
-function initClickMeter() {
-  // Création de la jauge si elle n'existe pas
-  if (!document.querySelector('.click-meter-container')) {
-    const container = document.createElement('div');
-    container.className = 'click-meter-container';
-    container.innerHTML = `
-      <div class="click-meter-wrapper">
-        <div class="click-meter-fill"></div>
-        <div class="click-meter-glow"></div>
-      </div>
-    `;
-    document.body.appendChild(container);
-  }
-  setInterval(decayClickMeter, 100);
 }
 
 export { incrementClickMeter, initClickMeter, MAX_METER };
