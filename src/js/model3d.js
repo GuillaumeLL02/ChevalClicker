@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 function main() {
     const model3D = document.getElementById('Model3D');
@@ -72,23 +71,6 @@ function main() {
     const normalTexture = loadTexture('/src/assets/textures/Horse_Normal.png');
     const roughnessTexture = loadTexture('/src/assets/textures/Horse_Roughtness.png');
 
-    // Initialiser la GUI
-    const gui = new GUI();
-    gui.title('Horse Customization');
-
-    const textureSettings = {
-        baseIndex: 0,
-        normalIndex: 0,
-        roughnessIndex: 0
-    };
-
-    // Paramètres d'intensité de texture
-    const textureIntensity = {
-        baseColor: 1,
-        normalScale: 1,
-        roughness: 0.7
-    };
-
     // Charger le modèle
     const loader = new FBXLoader();
     let horseModel;
@@ -136,21 +118,6 @@ function main() {
         });
     }
 
-    const materialFolder = gui.addFolder('Material Settings');
-    
-    
-    // Ajouter les contrôles d'intensité de matériau
-    materialFolder.add(textureIntensity, 'baseColor', 0, 2, 0.01)
-        .name('Base Color')
-        .onChange(updateMaterialSettings);
-    
-    materialFolder.add(textureIntensity, 'normalScale', 0, 5, 0.1)
-        .name('Normal Strength')
-        .onChange(updateMaterialSettings);
-    
-    materialFolder.add(textureIntensity, 'roughness', 0, 1, 0.01)
-        .name('Roughness')
-        .onChange(updateMaterialSettings);
 
     // Créer une base visuelle sous le cheval
     function createBase() {

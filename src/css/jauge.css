@@ -1,7 +1,7 @@
-/* Version simplifiée - Seul le multiplicateur de stamina affecte la jauge */
+/* Jauge de clic améliorée */
 .click-meter-container {
   position: fixed;
-  right: 30px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -72,15 +72,13 @@
   animation: glow-pulse 1s ease-in-out infinite;
 }
 
-
-/* Animation pour la stamina haute */
 @keyframes glow-pulse {
   0% { opacity: 0.7; }
   50% { opacity: 1; }
   100% { opacity: 0.7; }
 }
 
-/* Marqueurs de progression (optionnel) */
+/* Marqueurs de progression */
 .click-meter-wrapper::after {
   content: '';
   position: absolute;
@@ -99,6 +97,7 @@
   pointer-events: none;
 }
 
+/* Animation de confettis pour récompenses */
 .confetti {
   position: fixed;
   top: 0;
@@ -112,7 +111,6 @@
   animation-fill-mode: forwards;
 }
 
-/* Animation de chute */
 @keyframes fall {
   to {
     transform: translateY(100vh) rotate(360deg);

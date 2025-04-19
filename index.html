@@ -13,6 +13,7 @@
     <link href="/src/css/navbar.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/music-control.css" rel="stylesheet" type="text/css" />
     <link href="/src/css/stamina-bar.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/mission-style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -83,6 +84,23 @@
 
     <!-- Page 2 : Interface avec cheval 2D -->
     <div id="game-ui" class="page" style="display: none;">
+
+        <!-- missions.html - Structure à inclure dans votre fichier HTML principal -->
+        <div class="mission-container">
+            <div class="mission-header">Mission: <span id="mission-title"></span></div>
+            <div class="mission-description" id="mission-description"></div>
+            <div class="mission-progress-bar">
+                <div class="mission-progress-fill" id="mission-progress-fill"></div>
+            </div>
+            <div class="mission-info">
+                <div>Progression: <span id="mission-progress">0/0</span></div>
+                <div class="mission-time" id="mission-time">Temps: 30s</div>
+            </div>
+            <div id="mission-result-container" style="display: none;">
+                <div class="mission-result" id="mission-result"></div>
+                <div class="mission-reward" id="mission-reward"></div>
+            </div>
+        </div>
 
         <div class="money-container">
             <div class="money-icon">
@@ -165,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="Modelpart"> 
+                <div class="Modelpart">
                     <div id="Model3D"></div> <!-- Conteneur pour le cheval -->
                 </div>
 
@@ -183,6 +201,7 @@
     <script src="/src/js/jauge.js" type="module"></script>
     <script src="/src/js/script_gameplay.js" type="module"></script>
     <script src="/src/js/food-upgrade.js" type="module"></script>
+    <script src="/src/js/mission-system.js" type="module"></script>
 </body>
 
 </html>

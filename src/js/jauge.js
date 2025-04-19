@@ -3,9 +3,9 @@ import { addMoney } from './money.js';
 
 
 let clickMeterValue = 0;
-const MAX_METER = 1000;
-const DECAY_RATE = 2;
-const CLICK_VALUE = 1;
+const MAX_METER = 1500;         
+const DECAY_RATE = 4;           
+const CLICK_VALUE = 1;          
 
 
 function initClickMeter() {
@@ -42,7 +42,7 @@ function decayClickMeter() {
 
 function achieveGoal() {
   clickMeterValue = 0;
-  addMoney(1000);
+  addMoney(1500);  
   createCelebration();
 }
 

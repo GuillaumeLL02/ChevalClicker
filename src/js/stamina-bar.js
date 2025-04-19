@@ -1,11 +1,12 @@
 let staminaValue =  10;
-const MAX_STAMINA = 200;  
+const MAX_STAMINA = 250;  
 
-// Simplification des multiplicateurs à 3 niveaux clairement distincts
+// Seuils et multiplicateurs ajustés
 const STAMINA_MULTIPLIER_LEVELS = [
-  { threshold: 140, value: 3, color: '#4CAF50' }, // Stamina haute (140-200) = x3
-  { threshold: 60, value: 2, color: '#FF9800' }, // Stamina moyenne (60-140) = x2
-  { threshold: 0, value: 1, color: '#F44336' }   // Stamina faible (0-60) = x1
+  { threshold: 180, value: 4, color: '#4CAF50' },   // Niveau max plus difficile à atteindre mais plus récompensant
+  { threshold: 120, value: 2.5, color: '#8BC34A' }, // Niveau intermédiaire ajouté
+  { threshold: 60, value: 1.5, color: '#FF9800' },  // Niveau standard
+  { threshold: 0, value: 1, color: '#F44336' }    // Pénalité légère quand stamina faible
 ];
 
 let staminaDecayInterval = null;
@@ -77,7 +78,7 @@ function startStaminaDecay() {
   staminaDecayInterval = setInterval(() => {
     // Diminuer progressivement la stamina
     if (staminaValue > 0) {
-      staminaValue -= 3;
+      staminaValue -= 4;
       updateStaminaBar();
     }
     if (staminaValue > 160) {

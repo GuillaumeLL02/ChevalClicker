@@ -12,11 +12,10 @@
   z-index: 10;
 }
 
-
 .stamina-bar-label {
-  font-family: 'Trebuchet MS', 'Arial', sans-serif;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
   font-weight: 700;
-  color:#ffe6cc;
+  color: #ffe6cc;
   font-size: 18px;
   text-align: center;
   text-transform: uppercase;
@@ -69,7 +68,7 @@
   z-index: 2;
 }
 
-/* Ajout des marqueurs de niveaux sur la barre */
+/* Marqueurs de niveaux sur la barre */
 .stamina-bar-wrapper::after {
   content: '';
   position: absolute;
@@ -94,7 +93,6 @@
   pointer-events: none;
 }
 
-
 .stamina-bar-glow {
   position: absolute;
   top: 0;
@@ -106,15 +104,28 @@
   opacity: 0.6;
   filter: blur(8px);
   background: #F44336; /* Couleur de base (x1) */
-  transition: width 0.3s ease-out, opacity 0.3s ease-out;
+  transition: width 0.3s ease-out, opacity 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+/* Différentes couleurs selon le niveau de stamina */
+.stamina-bar-glow.level1 {
+  background: #F44336; /* Rouge (x1) */
+}
+
+.stamina-bar-glow.level2 {
+  background: #FF9800; /* Orange (x2) */
+}
+
+.stamina-bar-glow.level3 {
+  background: #4CAF50; /* Vert (x3) */
 }
 
 .stamina-value {
   font-family: 'Georgia', serif;
   font-weight: bold;
   font-size: 20px;
-  color: #070707; /* Couleur de base (x1) */
-
+  color: #070707;
+  background: linear-gradient(145deg, #fff, #f0f0f0);
   border: 3px solid #5a2e0d;
   border-radius: 50%;
   width: 40px;
@@ -127,7 +138,7 @@
   position: relative;
 }
 
-/* Style pour le petit indicateur de multiplicateur */
+/* Indicateur de multiplicateur */
 .stamina-value small {
   font-size: 12px;
   position: absolute;
