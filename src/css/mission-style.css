@@ -1,6 +1,6 @@
-/* Panneau de mission - positionné en haut à droite */
 .mission-container {
     position: absolute;
+    margin: 10px;
     top: 20px;
     right: 20px;
     left: auto;
@@ -18,7 +18,7 @@
     font-family: 'Trebuchet MS', Arial, sans-serif;
 }
 
-/* Animations modifiées pour le nouveau positionnement */
+
 @keyframes missionAppear {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }

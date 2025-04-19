@@ -1,21 +1,19 @@
-/* Réinitialisation globale */
 * {
-  margin: 0;
+  margin: 0px;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Styles de base pour le body */
+
 body {
   font-family: Arial, sans-serif;
   height: 100vh;
   background-image: url("/src/images/Background/2.jpg");
   background-size: contain;
-  overflow: hidden; /* Empêche le défilement */ 
-
+  overflow: hidden; /* Empêche le défilement de la page */
 }
 
-/* Modification du CSS du titre pour éviter les problèmes de mise en page */
+/* Styles pour le Titre du jeu */
 .title-container {
   position: absolute;
   top: 10%; 
@@ -29,7 +27,7 @@ body {
 
 .title-container h1 {
   font-family: "Arial Black", sans-serif;
-  font-size: 8rem; /* Légèrement plus petit */
+  font-size: 8rem;
   color: #fff;
   text-shadow: 
   0 0 10px #8B4513,
@@ -40,18 +38,19 @@ body {
   letter-spacing: 0.5rem;
 
 }
+
 /* Style pour l'image remplaçant le O dans HORSE */
 .title-image {
-  height: 6.5rem; /* Ajustez selon la taille de votre H1 */
+  height: 6.5rem; 
   vertical-align: middle; /* Alignement vertical avec le texte */
   margin: 0 -5px; /* Légère correction de l'espacement */
   display: inline-block;
-  transform: translateY(-5px); /* Ajustement fin de la position verticale */
+  transform: translateY(-5px); 
 }
 
 .title-container h2 {
   font-family: "Arial Black", sans-serif;
-  font-size: 6.5rem; /* Légèrement plus petit */
+  font-size: 6.5rem; 
   color: #fff;
   text-shadow: 
       0 0 10px #8B4513,
@@ -60,18 +59,13 @@ body {
       3px 3px 0 #000;
   margin: 0;
   letter-spacing: 0.3rem;
-  margin-top: -1rem; /* Rapprocher les deux lignes */
-}
-/* Styles pour les pages */
-.page {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
+  margin-top: -1rem; 
 }
 
+
 #main-menu {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,7 +97,6 @@ body {
   border-radius: 10px;
 }
 
-/* Contenu principal du jeu */
 .game-content {
   width: 100%;
   height: calc(100vh - 60px);
@@ -129,15 +122,13 @@ body {
   transition: all 0.3s ease;
   z-index: 10;
   display: none; /* Caché au départ */
-  
-  /* Positionnement du bouton plus bas */
   position: absolute;
-  bottom: 35%; /* Position à 25% du bas de l'écran */
+  bottom: 35%; 
   left: 50%;
-  transform: translateX(-50%); /* Centre horizontalement */
+  transform: translateX(-50%); 
 }
 
-/* Nouvelle classe pour l'état visible */
+
 #start-game-btn.visible {
   display: block;
 }
@@ -148,7 +139,7 @@ body {
   transform: translateX(-50%) scale(1.1); /* Maintient le centrage lors du hover */
 }
 
-/* From Uiverse.io by Yogeshawghad0477, modifié */
+
 #h2 {
   color: white;
   mix-blend-mode: difference;
@@ -176,7 +167,7 @@ body {
   transition: background-position 0.3s ease; /* Transition uniquement pour la progression */
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .div {
     width: 80%;

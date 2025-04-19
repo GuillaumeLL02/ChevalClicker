@@ -6,42 +6,42 @@ const foodUpgrades = [
     {
         id: 'FirstFood',
         name: 'Carottes',
-        basePrice: 20,              // Prix de départ plus élevé
+        basePrice: 20,             
         level: 0,
         buttonId: 'FirstFoodButton',
-        staminaBonus: 15            // Bonus de stamina plus élevé
+        staminaBonus: 15            
     },
     {
         id: 'SecondFood',
         name: 'Foin',
-        basePrice: 80,              // Plus cher
+        basePrice: 80,        
         level: 0,
         buttonId: 'SecondFoodButton',
-        staminaBonus: 30            // Bonus considérablement augmenté
+        staminaBonus: 30            
     },
     {
         id: 'ThirdFood',
         name: 'Granulés',
-        basePrice: 250,             // Prix significativement augmenté
+        basePrice: 250,             
         level: 0,
         buttonId: 'ThirdFoodButton',
-        staminaBonus: 65            // Bonus très élevé
+        staminaBonus: 65            
     },
     {
         id: 'FourthFood',
         name: 'Pomme',
-        basePrice: 800,             // Prix élevé pour un item avancé
+        basePrice: 800,             
         level: 0,
         buttonId: 'FourthFoodButton',
-        staminaBonus: 100           // Bonus substantiel
+        staminaBonus: 100           
     },
     {
         id: 'FifthFood',
         name: 'Golden Pomme',
-        basePrice: 250,            // Item de fin de jeu difficile à obtenir
+        basePrice: 250,            
         level: 0,
         buttonId: 'FifthFoodButton',
-        staminaBonus: 180           // Bonus massif pour la progression tardive
+        staminaBonus: 180           
     }
 ];
 

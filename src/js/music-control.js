@@ -1,4 +1,3 @@
-// Module de contrôle de musique
 class MusicController {
     constructor() {
         this.musicToggle = document.getElementById('music-toggle');

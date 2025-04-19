@@ -1,6 +1,6 @@
 import { addMoney } from './money.js';
 import { incrementClickMeter, initClickMeter, MAX_METER } from './jauge.js';
-import {  staminaValue,getCurrentStaminaMultiplier } from './stamina-bar.js';
+import { getCurrentStaminaMultiplier } from './stamina-bar.js';
 import { initMissionSystem } from './mission-system.js';
 
 document.addEventListener('DOMContentLoaded', () => {

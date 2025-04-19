@@ -1,35 +1,89 @@
-Commande à faire pour lancer la page web :
-    npx vite
+# Horse CLICKER
 
-Bundler utilisé dans ce projet : Vite
+Un jeu clicker interactif en 3D où vous prenez soin d'un cheval virtuel.
 
-Utilisation de modéle 3D format gltf et glb 
+![Horse CLICKER Game](src/images/Jeu.png)
 
-A. Informations à fournir (dans les 15j) :
-1. Membres de votre équipe
-2. Nom du projet :
-   - Choisissez un nom clair, concis et accrocheur qui résume bien votre idée. 
-3. Description du projet :  
-   - De quoi s'agit-il ?  
-   - Quels sont ses objectifs principaux ? (3 lignes maximum, soyez synthétiques !) 
-4. Code :  
-   - Fournissez un lien vers votre dépôt GitHub/GitLab/.... Assurez-vous que le code est bien organisé…
+## Description
 
-B. Présentation des projets (en Amphi) :
-Avant votre départ en stage, vous aurez l'occasion de présenter vos projets HTML5 devant vos camarades et moi-même. Voici les grandes lignes pour préparer cette présentation :
-- Durée :
-   - 5 minutes par groupe. Soyez précis et respectez le temps imparti !  
-- Format :  
-   - Libre ! Vous pouvez utiliser PowerPoint, PDF, Prezi, ... 
-   - Vous pouvez aussi innover : chant, sketch, vidéo, démonstration interactive... Laissez libre cours à votre créativité ! 
-- Contenu :
-   - Introduction : Présentez votre idée et son originalité. Qu'est-ce qui la rend unique ?  
-   - Valeur ajoutée : Pourquoi votre application est-elle incontournable ? Quels problèmes résout-elle ?  
-   - Démonstration : Montrez votre projet en action. Une démo vaut mieux qu'un long discours !  
-   - Technologies utilisées : Expliquez les technologies choisies (HTML5, CSS, JavaScript, frameworks, etc.) et pourquoi elles sont adaptées à votre projet. 
+Horse CLICKER est un jeu de type "clicker" développé en web. Cliquez sur le cheval pour gagner des ressources, achetez de la nourriture pour augmenter son niveau de nourriture et sa barre de stamina. Plus la stamina augmente, meilleurs sont vos multiplicateurs de points !
 
-C. Objectif de la présentation :
-L'objectif est de convaincre l'auditoire de l'intérêt de votre projet et de ses qualités. Pour cela :  
-- Soyez clairs...  
-- Mettez en avant les points forts de votre application.  
-- N'hésitez pas à faire preuve d'humour et de créativité.
+Votre objectif final est de remplir la jauge jusqu'à 1500 points tout en accomplissant diverses missions qui apparaîtront au cours du jeu.
+
+## Fonctionnalités principales
+
+- **Système de clics interactif** : Cliquez sur le cheval 3D pour gagner de l'argent 
+- **Gestion de ressources** : Achetez de la nourriture pour augmenter le multiplicateur
+- **Barre de stamina** : Augmentez la stamina pour obtenir de meilleurs multiplicateurs
+- **Système de missions** : Complétez diverses missions qui apparaissent pendant le jeu
+- **Modèles 3D** : Visualisation du cheval en 3D grâce à Three.js
+- **Objectif final** : Remplir la jauge principale à 1500 points
+
+## Technologies utilisées
+
+- HTML5
+- CSS3
+- JavaScript
+- Three.js (pour les modèles 3D)
+- Vite (bundler)
+- Git LFS (pour le stockage des fichiers volumineux)
+
+## Prérequis
+
+- Node.js (version recommandée : 14.x ou supérieure)
+- NPM ou Yarn
+
+## Installation
+
+1. Clonez le dépôt Git :
+```bash
+git clone https://github.com/votre-username/horse-clicker.git
+cd horse-clicker
+```
+
+2. Installez les dépendances :
+```bash
+npm install
+```
+
+3. Lancez le serveur de développement :
+```bash
+npx vite
+```
+
+4. Ouvrez votre navigateur à l'adresse indiquée (généralement http://localhost:3000)
+
+## Utilisation de Git LFS
+
+Ce projet utilise Git Large File Storage (LFS) pour gérer les fichiers 3D volumineux (GLTF et GLB). Si vous souhaitez contribuer ou cloner le projet, assurez-vous d'avoir Git LFS installé :
+
+```bash
+git lfs install
+git lfs pull
+```
+
+## Structure du projet
+```
+CHEVALCLICKER/
+├── node-modules/
+├── src/
+│   ├── assets/         # Modèles 3D FBX/GLB et textures
+│   ├── css/            # Styles CSS
+│   ├── images/         # Images
+│   ├── js/             # Fichiers javascript
+│   ├── sound/          # Musique du jeu
+│   └── index.html      # Page principale
+├── package-lock.json
+├── package.json        # Configuration Vite
+└── README.md           # Ce fichier
+
+```
+
+## Auteurs
+``` bash
+Wael ZEIN   
+Guillaume Leleux
+Martin Mollat
+```
+
+Amusez-vous bien avec HORSE CLICKER ! 🐴

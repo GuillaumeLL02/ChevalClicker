@@ -17,9 +17,9 @@ const missions = [
     {
         id: 2,
         name: "Mission 2",
-        description: "Remplissez la jauge à 100 points en 30 secondes",
+        description: "Remplissez la jauge à 100 points en 20 secondes",
         gaugeTarget: 100,
-        timeLimit: 30,
+        timeLimit: 20,
         reward: { money: 75, stamina: 30 },
         fallbackMission: {
             name: "Mission 2.2",
@@ -32,9 +32,9 @@ const missions = [
     {
         id: 3,
         name: "Mission 3 - Carotte",
-        description: "Atteignez le niveau 3 dans la Carotte",
+        description: "Atteignez le niveau 5 dans la Carotte",
         targetUpgrade: 'FirstFood',
-        targetLevel: 3,
+        targetLevel: 4,
         timeLimit: 60,
         reward: { money: 50, stamina: 15 },
         checkProgress: function() {
@@ -45,8 +45,8 @@ const missions = [
     {
         id: 4,
         name: "Mission 4",
-        description: "Atteignez 100 clics en 30 secondes",
-        clickTarget: 100,
+        description: "Atteignez 200 clics en 30 secondes",
+        clickTarget: 200,
         timeLimit: 30,
         reward: { money: 150, stamina: 40 },
         fallbackMission: {
@@ -59,18 +59,10 @@ const missions = [
     },
     {
         id: 5,
-        name: "Mission 5",
-        description: "Remplissez la jauge à 350 points en 25 secondes",
-        gaugeTarget: 350,
-        timeLimit: 25,
-        reward: { money: 200, stamina: 50 },
-    },
-    {
-        id: 6,
-        name: "Mission 6 - Golden Pomme",
-        description: "Atteignez le niveau 1 dans la Golden Pomme",
+        name: "Mission 5 - Golden Pomme",
+        description: "Atteignez le niveau 2 dans la Golden Pomme",
         targetUpgrade: 'FifthFood',
-        targetLevel: 1,
+        targetLevel: 2,
         timeLimit: 120,
         reward: { money: 500, stamina: 100 },
         checkProgress: function() {

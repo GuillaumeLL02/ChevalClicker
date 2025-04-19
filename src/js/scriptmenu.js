@@ -78,7 +78,7 @@ function main() {
     // Background avec texture
     const textureLoader = new THREE.TextureLoader(loadingManager);
     textureLoader.load(
-        '/src/images/sky_image.jpg',
+        '/src/images/Background/sky_image.jpg',
         (texture) => {
             scene.background = texture;
         },

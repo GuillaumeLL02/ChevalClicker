@@ -1,12 +1,12 @@
 let staminaValue =  10;
-const MAX_STAMINA = 250;  
+const MAX_STAMINA = 300;  
 
-// Seuils et multiplicateurs ajustés
+// Seuil de stamina pour atteindre les niveaux de multiplicateur
 const STAMINA_MULTIPLIER_LEVELS = [
-  { threshold: 180, value: 4, color: '#4CAF50' },   // Niveau max plus difficile à atteindre mais plus récompensant
-  { threshold: 120, value: 2.5, color: '#8BC34A' }, // Niveau intermédiaire ajouté
-  { threshold: 60, value: 1.5, color: '#FF9800' },  // Niveau standard
-  { threshold: 0, value: 1, color: '#F44336' }    // Pénalité légère quand stamina faible
+  { threshold: 250, value: 3, color: '#4CAF50' },   
+  { threshold: 120, value: 2, color: '#8BC34A' }, 
+  { threshold: 60, value: 1.5, color: '#FF9800' }, 
+  { threshold: 0, value: 1, color: '#F44336' }    
 ];
 
 let staminaDecayInterval = null;
@@ -56,7 +56,7 @@ function updateStaminaBar() {
   staminaValueDisplay.innerHTML = `<span>x${currentLevel.value}</span>`;
   staminaValueDisplay.style.color = currentLevel.color;
   
-  // Ajouter une classe CSS pour indication visuelle du niveau
+  // classe CSS pour indication visuelle du niveau
   staminaValueDisplay.className = 'stamina-value';
   staminaValueDisplay.classList.add(`stamina-level-${currentLevel.value}`);
 
