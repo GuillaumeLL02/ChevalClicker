@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/chevalclicker/',
-  build: {
-    assetsInlineLimit: 0 // Important pour les gros fichiers
+  base: '/', // Chemin racine pour le développement local
+  server: {
+    port: 5000, // Port local
+    open: true // Ouvre le navigateur automatiquement
   }
 })
