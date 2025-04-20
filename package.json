@@ -1,8 +1,20 @@
 {
+  "name": "chevalclicker",
+  "homepage": "https://GuillaumeLL02.github.io/chevalclicker",
+  "version": "1.0.0",
+  "description": "Jeu 3D avec Three.js hébergé sur GitHub Pages",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "three": "^0.174.0"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "vite": "^6.2.2"
   }
 }
