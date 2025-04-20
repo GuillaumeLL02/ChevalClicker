@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "description": "Jeu 3D avec Three.js hébergé sur GitHub Pages",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "predeploy": "npm run build && rd /s/q dist\\.git || true",
-  "deploy": "gh-pages --dist dist --branch gh-pages --dotfiles --no-history --force"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build && exit 0",
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "three": "^0.174.0"
   },
