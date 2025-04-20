@@ -1,9 +1,8 @@
-// vite.config.js
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/chevalclicker/'
+  base: '/chevalclicker/',
   build: {
-    assetsInlineLimit: 0 // Force la copie des fichiers bruts
+    assetsInlineLimit: 0 // Important pour les gros fichiers
   }
 })
