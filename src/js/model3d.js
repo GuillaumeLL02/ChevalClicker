@@ -20,7 +20,6 @@ function main() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.outputEncoding = THREE.sRGBEncoding;
     model3D.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 1));
