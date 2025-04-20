@@ -135,7 +135,7 @@ function main() {
     };
 
     // Charger le modèle
-    loadModel('src/assets/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
+    loadModel('/LowPolyTrees.glb', { x: 20, y: 20, z: 20 }, { x: 0, y: 0, z: 0 });
 
     // Gestion du redimensionnement
     window.addEventListener('resize', () => {
